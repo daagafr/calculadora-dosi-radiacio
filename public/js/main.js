@@ -228,3 +228,27 @@ function openTargetArticle() {
 }
 window.addEventListener("hashchange", openTargetArticle);
 openTargetArticle();
+
+// --- Botó de mode clar/fosc (per defecte, el del sistema; la tria es desa al navegador)
+const THEME_KEY = "calculadora-dosi:theme";
+const themeButton = document.querySelector("[data-theme-toggle]");
+const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+const currentTheme = () => document.documentElement.dataset.theme ?? (systemDark.matches ? "dark" : "light");
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeButton.setAttribute("aria-label", theme === "dark" ? t("ui.themeToLight") : t("ui.themeToDark"));
+  for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+    meta.content = getComputedStyle(document.documentElement).getPropertyValue("--paper").trim();
+  }
+}
+themeButton.addEventListener("click", () => {
+  const next = currentTheme() === "dark" ? "light" : "dark";
+  applyTheme(next);
+  try {
+    localStorage.setItem(THEME_KEY, next);
+  } catch {
+    /* sense emmagatzematge disponible */
+  }
+});
+themeButton.setAttribute("aria-label", currentTheme() === "dark" ? t("ui.themeToLight") : t("ui.themeToDark"));

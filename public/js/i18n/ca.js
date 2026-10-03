@@ -12,6 +12,8 @@ export default {
     perYear: "/any",
     perExam: "per prova",
     moreInfo: "Més informació",
+    themeToDark: "Canvia a mode fosc",
+    themeToLight: "Canvia a mode clar",
     sources: "Fonts",
     choose: "Tria una opció…",
     contributes: "Aporta",
