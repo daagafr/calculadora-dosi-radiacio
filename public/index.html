@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora de dosi de radiació · Quanta radiació reps en un any?</title>
+    <meta
+      name="description"
+      content="Calcula la teva dosi anual de radiació ionitzant (radó, terra, raigs còsmics, proves mèdiques, vols…) amb dades d'organismes oficials com el CSN, l'UNSCEAR i l'ICRP, i aprèn quines exposicions importen de debò."
+    />
+    <link rel="canonical" href="https://calculadora-dosi-de-radiacio.web.app/" />
+    <meta name="author" content="David Galan" />
+    <meta name="theme-color" content="#faf8f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15140f" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calculadora-dosi-de-radiacio.web.app/" />
+    <meta property="og:site_name" content="Calculadora de dosi de radiació" />
+    <meta property="og:title" content="Quanta radiació reps en un any?" />
+    <meta
+      property="og:description"
+      content="Calcula la teva dosi anual de radiació i descobreix d'on ve: radó, terra, raigs còsmics, proves mèdiques, vols…"
+    />
+    <meta property="og:locale" content="ca_ES" />
+    <meta property="og:image" content="https://calculadora-dosi-de-radiacio.web.app/images/radiation.png" />
+
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="images/radiation.ico" sizes="any" />
+    <link rel="preload" href="fonts/fraunces-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="js/main.js"></script>
+
+    <!-- Analítica sense cookies (GoatCounter). Substitueix CODI pel teu codi de GoatCounter i treu el comentari. -->
+    <!-- <script data-goatcounter="https://CODI.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->
+  </head>
+
+  <body>
+    <a class="skip-link" href="#calculadora">Salta a la calculadora</a>
+
+    <header class="masthead">
+      <div class="wrap masthead__inner">
+        <a class="brand" href="./">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#trefoil" /></svg>
+          Calculadora de dosi de radiació
+        </a>
+        <nav aria-label="Seccions">
+          <a href="#calculadora">Calculadora</a>
+          <a href="#apren">Aprèn</a>
+          <a href="#fonts">Fonts</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="wrap hero">
+        <div>
+          <p class="eyebrow">Eina de divulgació · Radiació ionitzant</p>
+          <h1>Quanta radiació reps <em>en un any?</em></h1>
+          <p class="hero__lede">
+            Vivim envoltats de radiació: ve del terra, de l'aire de casa, de l'espai, dels aliments i de
+            les proves mèdiques. Respon unes preguntes i descobreix la teva dosi anual estimada, d'on ve
+            i quines fonts importen de debò.
+          </p>
+        </div>
+        <svg class="hero__trefoil" viewBox="0 0 100 100" aria-hidden="true"><use href="#trefoil" /></svg>
+      </section>
+
+      <section class="wrap" aria-labelledby="primer-title">
+        <h2 id="primer-title" class="visually-hidden">Conceptes bàsics</h2>
+        <div class="primer">
+          <div>
+            <h2>Què és la radiació ionitzant?</h2>
+            <p>
+              És energia, en forma d'ones o partícules, amb prou energia per arrencar electrons dels àtoms. Per
+              això pot danyar l'ADN de les cèl·lules. Els raigs X, els raigs gamma o les partícules que
+              emeten els àtoms radioactius en són exemples. La llum, el wifi o el mòbil <b>no</b> ho són.
+            </p>
+          </div>
+          <div>
+            <h2>Com es mesura?</h2>
+            <p>
+              Fem servir la <b>dosi efectiva</b>, que té en compte el tipus de radiació i la sensibilitat de
+              cada òrgan, i que s'expressa en <b>sieverts (Sv)</b>. Com que les dosis habituals són molt
+              petites, parlem de <b>mil·lisieverts</b> (1 mSv = 0,001 Sv) i de <b>microsieverts</b>
+              (1 µSv = 0,001 mSv).
+            </p>
+          </div>
+          <div>
+            <h2>És perillosa?</h2>
+            <p>
+              Depèn de la dosi. A dosis molt altes causa danys greus i immediats. A les dosis baixes de la
+              vida quotidiana, el risc és molt petit i difícil de mesurar, però es considera que augmenta
+              amb la dosi. Per això té sentit conèixer la dosi i reduir-la quan es pot, sobretot la del radó.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap layout" id="calculadora">
+        <div>
+          <p class="calc__intro">
+            Comencem amb els valors mitjans de radiació natural a Espanya (uns 3,1 mSv): com més preguntes responguis, més s'ajustarà el
+            resultat a tu. Toca la <b>(i)</b> de qualsevol element per saber-ne més i veure'n la font.
+          </p>
+          <noscript><p>Aquesta calculadora necessita JavaScript per funcionar.</p></noscript>
+          <form id="calc-form" onsubmit="return false" novalidate></form>
+        </div>
+
+        <aside class="result" id="resultat" aria-labelledby="result-title">
+          <div class="result__card">
+            <p class="eyebrow" id="result-title">La teva dosi anual estimada</p>
+            <div class="result__total" aria-live="polite">
+              <span class="result__value" data-total>0</span>
+              <span class="result__unit">mSv/any</span>
+            </div>
+            <p class="result__banana">
+              <span>≈ <b class="num" data-bananas>0</b> plàtans</span>
+              <button type="button" class="info-btn" aria-label="Què vol dir la dosi en plàtans?" data-banana-info>i</button>
+            </p>
+            <div class="band" data-band>
+              <p class="band__title" data-band-title></p>
+              <p class="band__text" data-band-text></p>
+            </div>
+
+            <hr />
+            <p class="result__subtitle">Com es compara?</p>
+            <p class="result__ratio" data-ratio></p>
+            <div class="result__compare" data-compare></div>
+
+            <hr />
+            <p class="result__subtitle">D'on ve?</p>
+            <div class="breakdown" data-breakdown></div>
+            <p class="result__main" data-main-source></p>
+
+            <hr />
+            <p class="result__subtitle">Escala de referència</p>
+            <div data-scale></div>
+            <p class="scale__note">
+              Escala logarítmica: cada salt de la mateixa alçada multiplica la dosi per 10. Algunes referències són
+              dosis d'un sol cop i d'altres, anuals. Les dosis agudes (rebudes de cop) no es poden comparar
+              directament amb una dosi repartida al llarg d'un any. Més context a
+              <a href="#article-risc">És perillosa la radiació?</a> Fonts: <span data-scale-sources></span>
+            </p>
+
+            <div class="result__actions">
+              <button type="button" class="button" data-copy>Copia el resultat</button>
+              <button type="button" class="button button--ghost" data-reset>Reinicia</button>
+            </div>
+            <p class="result__disclaimer">
+              És una estimació educativa amb valors típics, no una mesura personal ni un consell mèdic. La
+              dosi real pot ser força diferent. Consulta la <a href="#metodologia">metodologia</a>.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <section class="learn" id="apren" aria-labelledby="learn-title">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Aprèn més</p>
+            <h2 id="learn-title">Entendre la radiació que ens envolta</h2>
+            <p>Explicacions curtes per posar el teu resultat en context.</p>
+          </div>
+          <div class="articles" id="articles">
+            <details class="article" id="article-origen">
+              <summary>
+                <h3>D'on ve la radiació que rebem?</h3>
+                <p>Les fonts de la dosi mitjana a Espanya, de més a menys.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  Aproximadament un 70 % de la dosi que rep una persona a Espanya és d'origen natural, i la font
+                  individual més important és el radó. Aquesta és l'estimació de la dosi mitjana
+                  anual<a class="cite" data-source="eanr2019"></a><a class="cite" data-source="dopoes2"></a><a class="cite" data-source="domnes"></a>:
+                </p>
+                <table class="ref-table">
+                  <thead><tr><th>Font</th><th>mSv/any</th></tr></thead>
+                  <tbody>
+                    <tr><td>Radó i torò (a dins dels edificis)</td><td>1,9</td></tr>
+                    <tr><td>Proves mèdiques (mitjana per habitant)</td><td>1,26</td></tr>
+                    <tr><td>Radiació del terra i dels edificis</td><td>0,53</td></tr>
+                    <tr><td>Raigs còsmics</td><td>0,36</td></tr>
+                    <tr><td>Aliments i aigua (potassi-40…)</td><td>0,30</td></tr>
+                    <tr><td>Altres: vols, tabac, centrals… (estimació)<a class="cite" data-source="unscear2008-b"></a></td><td>&lt; 0,1</td></tr>
+                    <tr><th>Total aproximat</th><th>4,3</th></tr>
+                  </tbody>
+                </table>
+                <p>
+                  La mitjana mundial de radiació natural és de 2,4 mSv l'any<a class="cite" data-source="unscear2008"></a>;
+                  a Espanya és una mica més alta (uns 3,1 mSv) pel radó i per les zones
+                  granítiques<a class="cite" data-source="eanr2019"></a>. Hi ha regions del món on grups importants de
+                  població reben de manera natural entre 10 i 20 mSv l'any<a class="cite" data-source="unscear2008"></a>;
+                  a Ramsar (Iran) o Kerala (Índia) la mitjana és d'uns 6–7 mSv, però alguns habitants en reben molt
+                  més<a class="cite" data-source="hendry2009"></a>.
+                </p>
+                <p>
+                  El 2010 el Consell de Seguretat Nuclear donava una mitjana de 3,7 mSv per a
+                  Espanya<a class="cite" data-source="csn-dosis2010"></a>, però aquella xifra feia servir la mitjana
+                  natural mundial. Aquí fem servir dades específiques d'Espanya.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-rado">
+              <summary>
+                <h3>El radó: el risc que sí pots reduir</h3>
+                <p>Què és, per què importa i què pots fer a casa.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  El radó és un gas radioactiu natural que surt del terra. No fa olor ni té color, i s'acumula als
+                  espais tancats, sobretot a soterranis i plantes baixes. És la segona causa de càncer de pulmó després
+                  del tabac i la primera en persones que no
+                  fumen<a class="cite" data-source="csn-radon2019"></a>.
+                  L'OMS calcula que el risc de càncer de pulmó augmenta un 16 % per cada 100 Bq/m³ de mitjana a llarg
+                  termini, i que és molt més alt en fumadors<a class="cite" data-source="who-radon2023"></a>.
+                </p>
+                <p><b>Què pots fer:</b></p>
+                <ol>
+                  <li>
+                    Mira el potencial de la teva zona al
+                    <a href="https://www.csn.es/mapa-del-potencial-de-radon-en-espana" target="_blank" rel="noopener">mapa del CSN</a><a class="cite" data-source="csn-radon-map"></a>.
+                  </li>
+                  <li>
+                    <b>Mesura'l.</b> És l'única manera de saber el valor real: es fa amb un detector passiu durant almenys
+                    tres mesos, que pots demanar a un laboratori acreditat.
+                  </li>
+                  <li>
+                    Si supera els <b>300 Bq/m³</b>, el nivell de referència
+                    legal<a class="cite" data-source="rd1029-2022"></a>, actua: ventila més, segella esquerdes i passos
+                    d'instal·lacions al terra i, si cal, instal·la un sistema d'extracció o despressurització. L'OMS
+                    recomana, si és possible, no superar els 100 Bq/m³<a class="cite" data-source="who-radon2023"></a>.
+                  </li>
+                  <li>
+                    Els edificis nous ja s'han de construir amb protecció contra el radó a les zones de més risc, segons el
+                    Codi Tècnic de l'Edificació<a class="cite" data-source="cte-hs6"></a>.
+                  </li>
+                </ol>
+                <p>
+                  Si fumes, deixar-ho és el que més redueix el risc: el tabac i el radó junts multipliquen el risc de
+                  càncer de pulmó.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-mediques">
+              <summary>
+                <h3>Proves mèdiques: benefici i risc</h3>
+                <p>Per què la radiació mèdica és diferent de la resta.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  A Espanya, les proves d'imatge mèdica aporten de mitjana uns <b>1,2–1,3 mSv per persona i any</b>,
+                  gairebé un terç (un 30 %) de la dosi total<a class="cite" data-source="dopoes2"></a><a class="cite" data-source="domnes"></a>.
+                  El TC (escàner) n'és la part més gran: a Europa suposa més de la meitat de la dosi
+                  mèdica<a class="cite" data-source="ec-rp180-2"></a>.
+                </p>
+                <p>
+                  La diferència amb altres fonts és que la radiació mèdica té un <b>benefici directe per a tu</b>: un
+                  diagnòstic o un tractament. Per això als pacients no se'ls aplica cap límit de dosi. En canvi, la llei
+                  exigeix que cada prova estigui <b>justificada</b> (que el benefici superi el risc) i
+                  <b>optimitzada</b> (que es faci amb la mínima dosi
+                  necessària)<a class="cite" data-source="rd601-2019"></a><a class="cite" data-source="icrp105"></a>.
+                </p>
+                <ul>
+                  <li>No evitis una prova necessària per por de la radiació.</li>
+                  <li>Si te n'han fet una de semblant fa poc, digues-ho: potser no cal repetir-la.</li>
+                  <li>Pregunta si hi ha alternatives sense radiació ionitzant, com l'ecografia o la ressonància magnètica.</li>
+                  <li>Els nens són més sensibles a la radiació; per això se'ls fan protocols adaptats. Aquesta calculadora fa servir valors d'adult.</li>
+                </ul>
+                <p>
+                  La mateixa prova pot donar dosis molt diferents segons el país, l'hospital i l'equip: entre països europeus,
+                  la dosi típica d'una mateixa prova pot ser de 7 a 40 vegades més alta en un país que en un altre,
+                  segons la prova<a class="cite" data-source="ec-rp180"></a>.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-embaras">
+              <summary>
+                <h3>Embaràs i proves amb radiació</h3>
+                <p>Què cal saber si estàs embarassada o podries estar-ho.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  Digues sempre si estàs embarassada o podries estar-ho abans d'una prova amb radiació: l'hospital t'ho ha
+                  de preguntar i, si cal, adaptarà o canviarà la prova<a class="cite" data-source="rd601-2019"></a>.
+                </p>
+                <p>
+                  La dosi que rep l'embrió o el fetus es mesura en <b>mil·ligrays (mGy)</b> i depèn sobretot de si la zona
+                  explorada és a prop de l'úter<a class="cite" data-source="hpa2009"></a>:
+                </p>
+                <table class="ref-table">
+                  <thead><tr><th>Exemples de proves</th><th>Dosi típica al fetus</th></tr></thead>
+                  <tbody>
+                    <tr><td>Radiografia de tòrax, dental, mamografia, TC de cap</td><td>0,001–0,01 mGy</td></tr>
+                    <tr><td>Radiografia d'abdomen o pelvis, gammagrafia de tiroide o pulmonar</td><td>0,1–1 mGy</td></tr>
+                    <tr><td>Ènema opac, columna lumbar, TC d'abdomen, gammagrafia òssia</td><td>1–10 mGy</td></tr>
+                    <tr><td>TC de pelvis o d'abdomen i pelvis, PET-TC</td><td>10–50 mGy</td></tr>
+                  </tbody>
+                </table>
+                <p>
+                  Segons la Comissió Internacional de Protecció Radiològica, una dosi al fetus inferior a <b>100 mGy</b>
+                  no és motiu per interrompre un embaràs<a class="cite" data-source="icrp84"></a>, i les proves
+                  diagnòstiques habituals queden per sota d'aquest valor<a class="cite" data-source="hpa2009"></a>.
+                  Aquestes dosis són les del fetus, no les de la mare, i per això la calculadora no les suma al teu
+                  resultat. Si tens dubtes sobre una prova concreta, el servei de radiofísica de l'hospital pot fer-ne una
+                  estimació personalitzada.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-risc">
+              <summary>
+                <h3>És perillosa la radiació? Dosi, risc i límits</h3>
+                <p>Com interpretar el teu resultat sense alarmisme ni excés de confiança.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  La radiació ionitzant pot danyar l'ADN. Quan la dosi és molt alta i es rep de cop (en minuts),
+                  provoca efectes immediats: a partir d'uns 0,7 Gy (≈ 700 mSv) a tot el cos apareix la síndrome
+                  d'irradiació aguda<a class="cite" data-source="cdc-ars"></a><a class="cite" data-source="who-ionizing2023"></a>.
+                  Aquestes dosis no tenen res a veure amb les de la vida quotidiana, i tampoc no es poden comparar
+                  directament amb una dosi anual repartida al llarg dels mesos.
+                </p>
+                <p>
+                  A dosis baixes, l'efecte possible és un petit augment del risc de càncer a llarg termini. Per sota
+                  d'uns <b>100 mSv</b>, els estudis no han pogut mesurar aquest augment amb
+                  claredat<a class="cite" data-source="icrp103"></a><a class="cite" data-source="hps-risk"></a>, però la
+                  protecció radiològica suposa, per prudència, que qualsevol dosi comporta un risc proporcional (model
+                  lineal sense llindar). Alguns estudis recents amb treballadors nuclears apunten que el risc existeix
+                  també a dosis baixes<a class="cite" data-source="richardson2023"></a>.
+                </p>
+                <p>
+                  Per fer-te'n una idea: segons el comitè BEIR VII, si 100 persones reben 100 mSv, s'estima que una
+                  podria desenvolupar un càncer per aquesta radiació, mentre que unes 42 en desenvoluparan al llarg de
+                  la vida per altres causes<a class="cite" data-source="beir7"></a>. Per a dosis més baixes, el risc
+                  estimat és proporcionalment menor. Per això no calculem cap «percentatge de risc» personal: els
+                  organismes internacionals ho desaconsellen a aquestes dosis<a class="cite" data-source="icrp103"></a><a class="cite" data-source="hps-risk"></a>.
+                </p>
+                <table class="ref-table">
+                  <thead><tr><th>Límits legals a Espanya</th><th>Valor</th></tr></thead>
+                  <tbody>
+                    <tr><td>Públic, per activitats humanes (sense comptar la radiació natural ni la medicina)</td><td>1 mSv/any</td></tr>
+                    <tr><td>Treballadors exposats</td><td>20 mSv/any</td></tr>
+                    <tr><td>Radó a habitatges i llocs de treball (nivell de referència)</td><td>300 Bq/m³</td></tr>
+                    <tr><td>Pacients</td><td>sense límit: cada prova s'ha de justificar</td></tr>
+                  </tbody>
+                </table>
+                <p>Font dels límits: Reial Decret 1029/2022<a class="cite" data-source="rd1029-2022"></a>.</p>
+              </div>
+            </details>
+
+            <details class="article" id="article-mites">
+              <summary>
+                <h3>Mites: mòbils, wifi, 5G i escàners</h3>
+                <p>No tota la «radiació» és radiació ionitzant.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  Els telèfons mòbils, el wifi, el 5G, els forns de microones i les antenes emeten <b>radiació no
+                  ionitzant</b>: no té prou energia per arrencar electrons dels àtoms, que és el que fan els raigs X o la
+                  radiació gamma. Per això no sumen dosi en aquesta calculadora. Una revisió científica encarregada per
+                  l'Organització Mundial de la Salut (2024) no va trobar relació entre l'ús del mòbil i el càncer de
+                  cervell<a class="cite" data-source="karipidis2024"></a>.
+                </p>
+                <p>
+                  <b>Controls de l'aeroport:</b> a la màquina de raigs X els raigs travessen l'equipatge, no a tu. A la
+                  Unió Europea els escàners corporals només poden ser d'ones mil·limètriques, que no són
+                  ionitzants<a class="cite" data-source="eu-scanners"></a>. Passar el control suma 0 mSv.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-objectes">
+              <summary>
+                <h3>Objectes quotidians amb una mica de radioactivitat</h3>
+                <p>Rellotges, detectors de fum, granit… i per què no els comptem.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  Alguns objectes contenen petites quantitats de material radioactiu: els detectors de fum iònics
+                  (americi-241), els rellotges amb triti, les camises de llanterna de gas amb tori o algunes ceràmiques i
+                  vidres antics amb urani. En un ús normal donen dosis molt petites, generalment per sota de 0,01 mSv
+                  l'any<a class="cite" data-source="unscear2008-b"></a>, i molts s'han substituït per alternatives no
+                  radioactives.
+                </p>
+                <ul>
+                  <li>
+                    <b>Casa de pedra, maó o formigó:</b> la radiació dels materials de construcció ja està inclosa en el
+                    valor de la teva província. La llei fixa un nivell de referència d'1 mSv l'any per a aquests
+                    materials<a class="cite" data-source="rd1029-2022"></a>.
+                  </li>
+                  <li>
+                    <b>Taulells de granit:</b> és molt improbable que augmentin la dosi de manera
+                    apreciable<a class="cite" data-source="epa-granite"></a>; el que importa de debò és el radó que ve del
+                    terra.
+                  </li>
+                  <li>
+                    <b>Centrals de carbó:</b> les cendres contenen urani i tori, però la dosi als veïns és pràcticament
+                    nul·la, i la majoria de centrals de carbó d'Espanya ja han tancat.
+                  </li>
+                </ul>
+                <p>
+                  Per això no els incloem al càlcul: les fonts que realment pesen són el radó de casa i les proves mèdiques.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-platan">
+              <summary>
+                <h3>La dosi d'un plàtan</h3>
+                <p>Una unitat divertida per comparar, amb un matís important.</p>
+              </summary>
+              <div class="article__body">
+                <p>
+                  Els plàtans són rics en potassi, i un 0,0117 % de tot el potassi natural és potassi-40, que és
+                  radioactiu. Un plàtan conté uns 400–550 mg de potassi<a class="cite" data-source="usda-banana"></a>,
+                  amb una activitat d'uns 13–16 becquerels. Menjar-ne un suposa uns <b>0,1 µSv</b> (0,0001
+                  mSv)<a class="cite" data-source="icrp119"></a>, de manera que 1 mSv equival a uns 10.000 plàtans.
+                </p>
+                <p>
+                  El matís: <b>menjar plàtans no fa que acumulis dosi</b>. El cos manté constant la quantitat de potassi i
+                  elimina el que sobra<a class="cite" data-source="unscear2008-b"></a>. El potassi-40 del teu propi cos
+                  ja et dona uns 0,17 mSv l'any, mengis els plàtans que mengis. El plàtan és una unitat per fer-se una
+                  idea de les dosis petites, no una font de risc.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="sources" id="fonts" aria-labelledby="sources-title">
+        <div class="wrap">
+          <div class="section-head" id="metodologia">
+            <p class="eyebrow">Fonts i metodologia</p>
+            <h2 id="sources-title">D'on surten els números</h2>
+          </div>
+          <div class="method">
+            <div>
+              <h3>Què calculem</h3>
+              <p>
+                La <b>dosi efectiva</b> anual estimada d'una persona adulta, en mil·lisieverts (mSv), sumant set
+                fonts. Fem servir valors típics publicats per organismes oficials, prioritzant les dades d'Espanya
+                (Consell de Seguretat Nuclear) i, quan no n'hi ha, les de l'UNSCEAR, l'ICRP, l'Atles Europeu de
+                Radiació Natural i la Comissió Europea.
+              </p>
+            </div>
+            <div>
+              <h3>Criteris</h3>
+              <p>
+                Per a les fonts naturals seguim el mètode de l'UNSCEAR (80 % del temps a dins d'edificis), el mateix
+                que fan servir les mitjanes amb què et comparem, perquè la comparació sigui justa. Si no respons una
+                pregunta sobre fonts naturals, fem servir la mitjana d'Espanya; les proves mèdiques, els vols i la resta
+                compten zero si no n'indiques cap. Les dosis de les proves mèdiques són valors típics d'adult.
+              </p>
+            </div>
+            <div>
+              <h3>Limitacions</h3>
+              <p>
+                Les dosis reals poden ser força diferents: el radó varia molt d'una casa a una altra, i una mateixa prova
+                mèdica pot donar dosis diverses vegades més altes o més baixes segons l'hospital. La dosi efectiva serveix
+                per comparar fonts, no per calcular el risc d'una persona concreta.
+              </p>
+            </div>
+            <div>
+              <h3>Privacitat</h3>
+              <p>
+                El càlcul es fa al teu navegador. Les respostes es desen només al teu dispositiu perquè no les perdis si
+                recarregues la pàgina, i no s'envien enlloc. Pots esborrar-les amb el botó «Reinicia».
+              </p>
+            </div>
+          </div>
+          <h3 class="result__subtitle">Bibliografia</h3>
+          <ol class="biblio" id="biblio"></ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <div>
+          <p class="footer__author">
+            Creat per <b>David Galan</b> · Última actualització:
+            <time datetime="2026-10-04">4 d'octubre de 2026</time>
+          </p>
+          <p>
+            Aquesta calculadora va néixer com a treball de recerca de 2n de batxillerat i s'ha revisat i
+            actualitzat amb fonts oficials. Té finalitat divulgativa i no substitueix l'avaluació d'un
+            professional de la protecció radiològica o de la salut.
+          </p>
+        </div>
+        <p>
+          <a href="#calculadora">Calculadora</a> · <a href="#apren">Aprèn</a> · <a href="#fonts">Fonts</a>
+        </p>
+      </div>
+    </footer>
+
+    <div class="mobile-bar" aria-hidden="true">
+      <span class="mobile-bar__value"><span data-mobile-total>0</span><small>mSv/any</small></span>
+      <a href="#resultat" tabindex="-1">Mostra el resultat</a>
+    </div>
+
+    <dialog class="dialog" id="info-dialog" aria-labelledby="dialog-title">
+      <div class="dialog__inner">
+        <div class="dialog__head">
+          <h2 id="dialog-title" data-dialog-title></h2>
+          <button type="button" class="dialog__close" data-dialog-close aria-label="Tanca">×</button>
+        </div>
+        <span class="dialog__dose" data-dialog-dose></span>
+        <div class="dialog__body" data-dialog-body></div>
+        <p class="dialog__sources" data-dialog-sources></p>
+      </div>
+    </dialog>
+
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="trefoil" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="10" fill="currentColor" />
+        <path
+          fill="currentColor"
+          d="M2.00 50.00A48 48 0 0 1 26.00 8.43L42.50 37.01A15 15 0 0 0 35.00 50.00ZM74.00 8.43A48 48 0 0 1 98.00 50.00L65.00 50.00A15 15 0 0 0 57.50 37.01ZM74.00 91.57A48 48 0 0 1 26.00 91.57L42.50 62.99A15 15 0 0 0 57.50 62.99Z"
+        />
+      </symbol>
+    </svg>
+  </body>
+</html>

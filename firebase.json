@@ -1,20 +1,38 @@
 {
   "hosting": {
     "site": "calculadora-dosi-de-radiacio",
-    "public": "./",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
+    "public": "public",
+    "cleanUrls": true,
+    "headers": [
       {
-        "source": "/robots.txt",
-        "destination": "/robots.txt"
+        "source": "**/*.@(woff2|png|ico|svg)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
       },
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=3600"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/info/BED.html",
+        "destination": "/#article-platan",
+        "type": 301
+      },
+      {
+        "source": "/info/**",
+        "destination": "/",
+        "type": 301
       }
     ]
   }

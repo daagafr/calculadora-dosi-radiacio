@@ -1,7 +1,16 @@
 {
-  "dependencies": {
-    "chartjs-plugin-labels": "^1.1.0",
-    "firebase": "^10.4.0",
-    "firebase-tools": "^13.11.4"
+  "name": "calculadora-dosi-radiacio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python tools/dev-server.py",
+    "test": "node --test \"tests/*.test.js\"",
+    "serve": "firebase serve --only hosting",
+    "deploy": "npm test && firebase deploy --only hosting"
+  },
+  "devDependencies": {
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "firebase-tools": "^15.32.1"
   }
 }
