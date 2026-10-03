@@ -23,6 +23,7 @@
       "target": "legacy",
       "public": "public",
       "redirects": [
+        { "source": "/", "destination": "https://dosiradiacio.web.app/", "type": 301 },
         { "source": "/:path*", "destination": "https://dosiradiacio.web.app/:path*", "type": 301 }
       ]
     }
