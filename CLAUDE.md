@@ -37,4 +37,4 @@ Every number comes from the research reports in `docs/fonts/` (01 natural source
 
 ## Analytics
 
-Cookieless GoatCounter snippet is commented out in `public/index.html`; it needs the site owner's GoatCounter code before enabling.
+Cookieless GoatCounter analytics is enabled in `public/index.html` (dashboard: https://calculadora-dosi.goatcounter.com).
