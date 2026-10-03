@@ -1,0 +1,619 @@
+.Rad-des-text {
+    text-align: justify;
+    font-size: 22px;
+    color: #ffffff;
+    padding-left: 2%;
+    padding-right: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+  }
+
+  .medRad-des-div-dis {
+    background-color: rgb(87, 191, 240);
+    margin-top: -1.7%;
+    width: 100%;
+    height: auto;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .medRad-des-div {
+    background-color: rgb(87, 191, 240);
+    margin-top: -1.7%;
+    width: 100%;
+    height: 5vh;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .arrow-medRad {
+    position: relative;
+    left: 97%;
+    top: 1.2vh;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid rgb(255, 255, 255);
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  .arrow-internalRad {
+    position:relative;
+    left: 97%;
+    top: 1.2vh;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid rgb(255, 255, 255);
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  .arrow-cosmicRad {
+    position: relative;
+    left: 97%;
+    top: 1.2vh;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid rgb(255, 255, 255);
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  .arrow-travelRad {
+    position: relative;
+    left: 97%;
+    top: 1.2vh;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid rgb(255, 255, 255);
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  .arrow-otherRad {
+    position: relative;
+    left: 97%;
+    top: 1.2vh;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid rgb(255, 255, 255);
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  .arrow-terrestrialRad {
+    position: relative;
+    left: 97%;
+    top: 1.2vh;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid rgb(255, 255, 255);
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  .arrow-RadonRad {
+    position: relative;
+    left: 97%;
+    top: 1.2vh;
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid rgb(255, 255, 255);
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  .medRad-des-div-dis.show {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  .medRad-des-div.show {
+    transform: translateY(-100%);
+    display: none;
+  }
+  
+  .internalRad-des-div-dis {
+    background-color: #39cab7;
+    margin-top: -1.7%;
+    width: 100%;
+    height: auto;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .cosmicRad-des-div-dis {
+    background-color: #ba69ca;
+    margin-top: -1.7%;
+    width: 100%;
+    height: auto;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 2%;
+  }
+  
+  .travelRad-des-div-dis {
+    background-color: #9ec457;
+    margin-top: -1.7%;
+    width: 100%;
+    height: auto;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 2%;
+  }
+  
+  .otherRad-des-div-dis {
+    background-color: #eca163;
+    margin-top: -1.7%;
+    width: 100%;
+    height: auto;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 2%;
+  }
+  
+  .terrestrialRad-des-div-dis {
+    background-color: #cec76c;
+    margin-top: -1.7%;
+    width: 100%;
+    height: auto;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 2%;
+  }
+  
+  .RadonRad-des-div-dis {
+    background-color: #db6a5b;
+    margin-top: -1.7%;
+    width: 100%;
+    height: auto;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 2%;
+  }
+  
+  .internalRad-des-div {
+    background-color: #39cab7;
+    margin-top: -1.7%;
+    width: 100%;
+    height: 5vh;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .cosmicRad-des-div {
+    background-color: #ba69ca;
+    margin-top: -1.7%;
+    width: 100%;
+    height: 5vh;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 2%;
+  }
+  
+  .travelRad-des-div {
+    background-color: #9ec457;
+    margin-top: -1.7%;
+    width: 100%;
+    height: 5vh;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .otherRad-des-div {
+    background-color: #eca163;
+    margin-top: -1.7%;
+    width: 100%;
+    height: 5vh;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .terrestrialRad-des-div {
+    background-color: #cec76c;
+    margin-top: -1.7%;
+    width: 100%;
+    height: 5vh;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 2%;
+  }
+  
+  .RadonRad-des-div {
+    background-color: #db6a5b;
+    margin-top: -1.7%;
+    width: 100%;
+    height: 5vh;
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .internalRad-des-div-dis.show {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  .cosmicRad-des-div-dis.show {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  .travelRad-des-div-dis.show {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  .otherRad-des-div-dis.show {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  .terrestrialRad-des-div-dis.show {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  .RadonRad-des-div-dis.show {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  .internalRad-des-div.show {
+    transform: translateY(-100%);
+    display: none;
+  }
+  
+  .cosmicRad-des-div.show {
+    transform: translateY(-100%);
+    display: none;
+  }
+  
+  .travelRad-des-div.show {
+    transform: translateY(-100%);
+    display: none;
+  }
+  
+  .otherRad-des-div.show {
+    transform: translateY(-100%);
+    display: none;
+  }
+  
+  .terrestrialRad-des-div.show {
+    transform: translateY(-100%);
+    display: none;
+  }
+  
+  .RadonRad-des-div.show {
+    transform: translateY(-100%);
+    display: none;
+  }
+  .radDescription {
+    color: white;
+    font-size: 28px;
+    margin-left: 2%;
+    position: relative;
+    top: 5%;
+  }
+  
+  
+  
+  
+  
+  
+  
+  .callAll {
+    width: 10%;
+    height: 10%;
+    background-color: red;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    z-index: 1000;
+  }
+
+
+
+  @media screen and (min-width: 2560px) {
+    .radDescription {
+      color: white;
+      font-size: 30px;
+      margin-left: 1.5%;
+      position: relative;
+      top: 15%;
+    }
+  }
+
+  @media screen and (max-width: 1366px) {
+
+    .Rad-des-text {
+      text-align: justify;
+      font-size: 22px;
+      color: #ffffff;
+      padding-left: 2%;
+      padding-right: 5%;
+      padding-top: 1%;
+      padding-bottom: 1%;
+    }
+  
+    .medRad-des-div-dis {
+      background-color: rgb(87, 191, 240);
+      margin-top: -3.48%;
+      width: 100%;
+      height: auto;
+      display: none;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .medRad-des-div {
+      background-color: rgb(87, 191, 240);
+      margin-top: -3.48%;
+      width: 100%;
+      height: 7vh;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .arrow-medRad {
+      position: relative;
+      left: 97%;
+      top: -1vh;
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgb(255, 255, 255);
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out;
+      z-index: 100;
+    }
+    .arrow-internalRad {
+      position:relative;
+      left: 97%;
+      top: -1vh;
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgb(255, 255, 255);
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out;
+      z-index: 100;
+    }
+    .arrow-cosmicRad {
+      position: relative;
+      left: 97%;
+      top: -1vh;
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgb(255, 255, 255);
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out;
+      z-index: 100;
+    }
+    .arrow-travelRad {
+      position: relative;
+      left: 97%;
+      top: -1vh;
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgb(255, 255, 255);
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out;
+      z-index: 100;
+    }
+    .arrow-otherRad {
+      position: relative;
+      left: 97%;
+      top: -1vh;
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgb(255, 255, 255);
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out;
+      z-index: 100;
+    }
+    .arrow-terrestrialRad {
+      position: relative;
+      left: 97%;
+      top: -1vh;
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgb(255, 255, 255);
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out;
+      z-index: 100;
+    }
+    .arrow-RadonRad {
+      position: relative;
+      left: 97%;
+      top: -1vh;
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 20px solid rgb(255, 255, 255);
+      transform: rotate(0deg);
+      transition: transform 0.2s ease-in-out;
+      z-index: 100;
+    }
+    .medRad-des-div-dis.show {
+      transform: translateY(0);
+      display: block;
+    }
+    
+    .medRad-des-div.show {
+      transform: translateY(-100%);
+      display: none;
+    }
+    
+    .internalRad-des-div-dis {
+      background-color: #39cab7;
+      margin-top: -3.48%;
+      width: 100%;
+      height: auto;
+      display: none;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .cosmicRad-des-div-dis {
+      background-color: #ba69ca;
+      margin-top: -3.48%;
+      width: 100%;
+      height: auto;
+      display: none;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+      margin-bottom: 2%;
+    }
+    
+    .travelRad-des-div-dis {
+      background-color: #9ec457;
+      margin-top: -3.48%;
+      width: 100%;
+      height: auto;
+      display: none;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+      margin-bottom: 2%;
+    }
+    
+    .otherRad-des-div-dis {
+      background-color: #eca163;
+      margin-top: -3.48%;
+      width: 100%;
+      height: auto;
+      display: none;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+      margin-bottom: 2%;
+    }
+    
+    .terrestrialRad-des-div-dis {
+      background-color: #cec76c;
+      margin-top: -3.48%;
+      width: 100%;
+      height: auto;
+      display: none;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+      margin-bottom: 2%;
+    }
+    
+    .RadonRad-des-div-dis {
+      background-color: #db6a5b;
+      margin-top: -3.48%;
+      width: 100%;
+      height: auto;
+      display: none;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease-in-out;
+      margin-bottom: 2%;
+    }
+    
+    .internalRad-des-div {
+      background-color: #39cab7;
+      margin-top: -3.48%;
+      width: 100%;
+      height: 7vh;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .cosmicRad-des-div {
+      background-color: #ba69ca;
+      margin-top: -3.48%;
+      width: 100%;
+      height: 7vh;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.2s ease-in-out;
+      margin-bottom: 2%;
+    }
+    
+    .travelRad-des-div {
+      background-color: #9ec457;
+      margin-top: -3.48%;
+      width: 100%;
+      height: 7vh;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .otherRad-des-div {
+      background-color: #eca163;
+      margin-top: -3.48%;
+      width: 100%;
+      height: 7vh;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .terrestrialRad-des-div {
+      background-color: #cec76c;
+      margin-top: -3.48%;
+      width: 100%;
+      height: 7vh;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.2s ease-in-out;
+      margin-bottom: 2%;
+    }
+    
+    .RadonRad-des-div {
+      background-color: #db6a5b;
+      margin-top: -3.48%;
+      width: 100%;
+      height: 7vh;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+
+
+
+
+
+  }

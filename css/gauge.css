@@ -1,0 +1,246 @@
+.medidor {
+  position: relative;
+  top: 16%;
+  left: 1.3%;
+  width: 1010px;
+  height: 55px;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.fondo-medidor {
+  position: relative;
+  top: 0%;
+  left: 0%;
+  width: 1040px;
+  height: 80px;
+  border-radius: 40px;
+  overflow: hidden;
+  background-color: #e2e2e2;
+}
+
+.bloque {
+  height: 100%;
+  width: 25%;
+  float: left;
+}
+
+.verde {
+  background-color: #9bcd31;
+}
+.amarillo {
+  background-color: #f8d51b;
+}
+.naranja {
+  background-color: #f37306;
+}
+.rojo {
+  background-color: #e22a0e;
+}
+
+/*
+.verde:hover {
+  background-color: #688627bb;
+}
+.amarillo:hover {
+  background-color: #b49913b6;
+}
+.naranja:hover {
+  background-color: #a74f02af;
+}
+.rojo:hover {
+  background-color: #aa210ca6;
+}
+*/
+
+.marcador {
+  position: fixed;
+  top: 50%;
+  left: -50%;
+  width: 100px;
+  height: 100px;
+  background: #131313;
+  clip-path: polygon(27% 0, 36% 0, 36% 50%, 60% 100%, 0 100%, 27% 49%);
+}
+
+.medidorDiv {
+  position: relative;
+  margin-top: 5%;
+  left: -28vh;
+  width: 1275px;
+  height: 3%;
+  z-index: 1;
+  transform: scale(0.5);
+}
+@media screen and (max-width: 1536px) {
+  .medidorDiv {
+    position: relative;
+    margin-top: 5%;
+    left: -32vh;
+    width: 1275px;
+    height: 3%;
+    z-index: 1;
+    transform: scale(0.5);
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .medidorDiv {
+    position: relative;
+    margin-top: 5%;
+    left: -10vh;
+    width: 1275px;
+    height: 3%;
+    z-index: 1;
+    transform: scale(0.5);
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .medidor {
+    position: relative;
+    top: 20%;
+    left: 1.7%;
+    width: 750px;
+    height: 40px;
+    border-radius: 40px;
+    overflow: hidden;
+  }
+
+  .fondo-medidor {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    width: 780px;
+    height: 70px;
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: #e2e2e2;
+  }
+
+  .bloque {
+    height: 100%;
+    width: 25%;
+    float: left;
+  }
+
+  .verde {
+    background-color: #9bcd31;
+  }
+  .amarillo {
+    background-color: #f8d51b;
+  }
+  .naranja {
+    background-color: #f37306;
+  }
+  .rojo {
+    background-color: #e22a0e;
+  }
+
+  .verde:hover {
+    background-color: #688627bb;
+  }
+  .amarillo:hover {
+    background-color: #b49913b6;
+  }
+  .naranja:hover {
+    background-color: #a74f02af;
+  }
+  .rojo:hover {
+    background-color: #aa210ca6;
+  }
+
+  .marcador {
+    position: fixed;
+    margin-top: -6%;
+    left: -50%;
+    width: 80px;
+    height: 80px;
+    background: #131313;
+    clip-path: polygon(27% 0, 36% 0, 36% 50%, 60% 100%, 0 100%, 27% 49%);
+  }
+
+  .medidorDiv {
+    position: relative;
+    top: -7%;
+    left: -32%;
+    width: 1275px;
+    height: 180px;
+    z-index: 1; /* Para que el medidorDiv este por debajo del marcador */
+    transform: scale(0.5);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .medidor {
+    position: relative;
+    top: 20%;
+    left: 1.7%;
+    width: 750px;
+    height: 40px;
+    border-radius: 40px;
+    overflow: hidden;
+  }
+
+  .fondo-medidor {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    width: 780px;
+    height: 70px;
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: #e2e2e2;
+  }
+
+  .bloque {
+    height: 100%;
+    width: 25%;
+    float: left;
+  }
+
+  .verde {
+    background-color: #9bcd31;
+  }
+  .amarillo {
+    background-color: #f8d51b;
+  }
+  .naranja {
+    background-color: #f37306;
+  }
+  .rojo {
+    background-color: #e22a0e;
+  }
+
+  .verde:hover {
+    background-color: #688627bb;
+  }
+  .amarillo:hover {
+    background-color: #b49913b6;
+  }
+  .naranja:hover {
+    background-color: #a74f02af;
+  }
+  .rojo:hover {
+    background-color: #aa210ca6;
+  }
+
+  .marcador {
+    position: fixed;
+    margin-top: -6%;
+    left: -50%;
+    width: 80px;
+    height: 80px;
+    background: #131313;
+    clip-path: polygon(27% 0, 36% 0, 36% 50%, 60% 100%, 0 100%, 27% 49%);
+  }
+
+  .medidorDiv {
+    position: relative;
+    top: 0%;
+    left: -10%;
+    width: 1275px;
+    height: 180px;
+    z-index: 1; /* Para que el medidorDiv este por debajo del marcador */
+    transform: scale(0.5);
+  }
+}

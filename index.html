@@ -1,0 +1,3323 @@
+<!DOCTYPE html>
+<html lang="ca-ES" dir="ltr">
+  <head>
+    <title>Calcula la teva dosi de radiació</title>
+
+    <link rel="canonical" href="https://calculadora-dosi-de-radiacio.web.app">
+
+    <script src="jquery-3.7.1.min.js" type="text/javascript"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js"
+      type="module"
+    ></script>
+    <script src="./firebase-config.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"
+      integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <link rel="stylesheet" type="text/css" href="css/headings.css" />
+    <link rel="stylesheet" type="text/css" href="css/maincss.css" />
+    <link rel="stylesheet" type="text/css" href="css/gauge.css" />
+    <link rel="stylesheet" type="text/css" href="css/hazard.css" />
+    <link rel="stylesheet" type="text/css" href="css/descriptions.css" />
+    <link rel="stylesheet" type="text/css" href="css/overlay.css" />
+    <link rel="stylesheet" type="text/css" href="css/radiation-explanation.css"/>
+    <link rel="stylesheet" type="text/css" href="css/chart.css" />
+
+    <link rel="icon" href="images/radiation.ico" type="image/x-icon" />
+
+    <meta name="og:url" content="https://calculadora-dosi-de-radiacio.web.app/" />
+    <meta name="og:site_name" content="Calcula la teva dosi de radiació" />
+    <meta name="og:title" content="Calcula la teva dosi de radiació" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="site_name" content="Calcula la teva dosi de radiació" />
+    <meta name="description" content="Aquesta pàgina proporciona una eina per calcular una estimació de la teva dosi de radiació anual a partir de les fonts a les quals podem estar exposats." />
+    <meta name="keywords" content="radiació, radiación, radiation, dosi, dosis, dose, calculator, calculadora, ionizing radiation,  
+    millirem, mrem,  radon, annual exposure, radó, radón, radiació ionitzant, radiación ionizante, ionitzant, exposició anual, exposición anual, 
+    msv, milisievert, milisieverts " />
+    <meta name="author" content="Calculadora dosi de radiació" />	
+    <meta name="application-name" content="Calculadora dosi de radiació" />
+    <meta name="robots" content="index, follow" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G3BV0LKL33"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G3BV0LKL33');
+</script>
+
+  </head>
+
+  <body>
+    <div class="site">
+      <div class="main-content" id="maincontent">
+        <div class="overlay">
+          <div class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <p class="modal-title">Calcula la teva dosi de radiació</p>
+                <span class="close">&times;</span>
+              </div>
+              <p class="modal-text">
+                Aquesta calculadora de radiació és el resultat d'un treball de
+                recerca de 2n de batxillerat. L'objectiu de la calculadora és
+                donar a conèixer als usuaris què és la radiació, on la podem
+                trobar en el dia a dia i com ens pot afectar. Aquesta eina
+                permet calcular la dosi anual de radiació que una persona pot
+                rebre de les diferents fonts de radiació (com radiografies o el 
+                radó) a través d'un formulari, a més de mostrar un gràfic amb els 
+                resultats i el nivell de perillositat de la dosi rebuda.
+              </p>
+              <!-- <p class="modal-text">
+                <b><i>No sé que esciure aquí</i></b>
+              </p> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Què és la radiació? ____________________________________________________ -->
+
+        <div class="radiation-explanation">
+          <div class="radiation-explanation-title">Què és la radiació?</div>
+          <div class="radiation-explanation-text">
+            La radiació és l'emissió d'energia en forma d'ones o partícules
+            subatòmiques en moviment a través de l'espai o d'un medi material
+            que prové d'àtoms inestables que es desintegren. L'exposició a les
+            radiacions més energètiques (ionitzants) poden provocar danys a la
+            pell o als teixits.
+          </div>
+          <div class="radiation-explanation-text">
+            La quantitat de radiació absorbida per qualsevol massa s'anomena
+            <b>dosi absorbida</b> i s'expressa en <b>grays (Gy)</b>. Segons
+            l'efectivitat de la radiació que absorbeix cada òrgan humà es
+            calcula la <b>dosi equivalent</b>, expressada en
+            <b>sieverts (Sv)</b>. Finalment, l'addició de totes les dosis
+            equivalents (ajustades segons la sensibilitat de cada òrgan)
+            s'anomena <b>dosi efectiva</b> i s'expressa també en sieverts. Com
+            que les dosis normalment són molt petites, s'utilitza el
+            <b>milisievert (mSv)</b>.
+          </div>
+          <div class="radiation-explanation-text">
+            En el cas d'aquesta calculadora, es mostra la dosi efectiva anual en
+            <b>milisieverts per any (mSv/any)</b>, però també apareixen algunes
+            fonts en microsieverts (µSv).
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- Radiació mèdica  _______________________________________________________ -->
+
+        <div class="typeRad" id="medicalRad">
+          <h1>
+            Radiació mèdica
+            <span id="medDose" class="medDose"></span> mSv
+          </h1>
+          <div class="arrow-medRad" onclick="medRad_display()"></div>
+          <div class="medRad-des-div">
+            <p class="radDescription">Descripció</p>
+          </div>
+          <div class="medRad-des-div-dis">
+            <p class="Rad-des-text">
+              Hi ha procediments mèdics que utilitzen radiació per obtenir
+              imatges del cos humà (radiodiagnòstics, com radiografies o
+              tomografies computades) o per eliminar cèl·lules i teixits
+              tumorals (radioteràpia). Les exposicions solen ser comparables a
+              les que rebem rutinàriament de radiació natural al nostre voltant,
+              i els beneficis dels exàmens mèdics són, per descomptat, molt
+              significatius.
+            </p>
+            <p class="Rad-des-text">
+              En el cas dels procediments que impliquen radioteràpia, és
+              impossible proporcionar una dosimetria de radiació precisa, raó
+              per la qual no estan inclosos en aquesta calculadora.
+            </p>
+          </div>
+
+          <div class="grid">
+            <p>
+              T'has sotmès a algun procediment de raigs X, medicació nuclear o
+              algun altre tipus de diagnòstic durant els últims dotze mesos?
+            </p>
+
+            <div class="radio">
+              <label>
+                <input id="siMed" type="radio" name="medSeleccion" value="si" />
+                Sí
+              </label>
+              <label>
+                <input
+                  id="noMed"
+                  type="radio"
+                  name="medSeleccion"
+                  value="no"
+                  checked
+                />
+                No
+              </label>
+            </div>
+          </div>
+
+          <div id="siMedDiv">
+            <div class="margin-bottom">
+              <p>Selecciona <b>totes</b> les opcions que corresponguin.</p>
+            </div>
+
+            <!-- Radiografia _________________________________________________________ -->
+
+            <div class="form-group">
+              <label class="container">
+                <input type="checkbox" name="casilla" id="medicalexams_0" />
+                <p class="medtype">Radiografia</p>
+                <span class="checkmark"></span>
+              </label>
+              <div class="medicalexams" id="radiografia">
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="skull1" /> Crani (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  o
+                  <div class="tooltip">
+                    <div class="tool-tip">PA</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>posteroanterior (PA)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte posterior (esquena) del tòrax i
+                      tornen per l'aspecte anterior (frontal).</span
+                    >
+                  </div>
+                  ) (0,03 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="skull1input">
+                  <input
+                    id="skull1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="skull2" /> Crani (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (0,01 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="skull2input">
+                  <input
+                    id="skull2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="chest1" /> Tòrax (
+                  <div class="tooltip">
+                    <div class="tool-tip">PA</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>posteroanterior (PA)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte posterior (esquena) del tòrax i
+                      tornen per l'aspecte anterior (frontal).</span
+                    >
+                  </div>
+                  ) (0,02 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="chest1input">
+                  <input
+                    id="chest1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="chest2" /> Tòrax (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (0,04 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="chest2input">
+                  <input
+                    id="chest2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="chest3" /> Tòrax (
+                  <div class="tooltip">
+                    <div class="tool-tip">PA</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>posteroanterior (PA)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte posterior (esquena) del tòrax i
+                      tornen per l'aspecte anterior (frontal).</span
+                    >
+                  </div>
+                  i
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (0,06 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="chest3input">
+                  <input
+                    id="chest3num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="dor1" /> Vèrtebres
+                  dorsals (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  ) (0,4 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="dor1input">
+                  <input
+                    id="dor1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="dor2" /> Vèrtebres
+                  dorsals (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (0,3 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="dor2input">
+                  <input
+                    id="dor2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="lumb1" /> Vèrtebres
+                  lumbars (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  ) (0,7 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="lumb1input">
+                  <input
+                    id="lumb1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="lumb2" /> Vèrtebres
+                  lumbars (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (0,3 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="lumb2input">
+                  <input
+                    id="lumb2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ab1" /> Abdomen (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  ) (0,7 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="ab1input">
+                  <input
+                    id="ab1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ab2" /> Abdomen
+                  (0,53 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="ab2input">
+                  <input
+                    id="ab2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="pelv1" /> Pelvis (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (0,7 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="pelv1input">
+                  <input
+                    id="pelv1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="pelv2" /> Pelvis o
+                  malucs (0,83 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="pelv2input">
+                  <input
+                    id="pelv2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="bite" /> Pel·lícula
+                  dental de Bitewing (4 µSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="biteinput">
+                  <input
+                    id="bitenum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="joints" />
+                  Extremitats i articulacions (0,06 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="jointsinput">
+                  <input
+                    id="jointsnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+              </div>
+            </div>
+
+            <!-- Procediment Raigs X _________________________________________________________ -->
+
+            <div class="form-group">
+              <label class="container">
+                <input type="checkbox" name="casilla" id="medicalexams_1" />
+                Procediment de raigs X
+                <span class="checkmark"></span>
+              </label>
+
+              <div class="medicalexams" id="procedures">
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="piv" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Pielografia intravenosa (PIV)</div>
+                    <span class="tooltiptext"
+                      >Examen de raigs X que utilitza una injecció de material
+                      de contrast per a avaluar els seus ronyons, urèters i
+                      bufeta, i per a ajudar a diagnosticar sang en l'orina o
+                      dolor en el costat o en la cintura.</span
+                    >
+                  </div>
+                  (ronyons, 6 films) (2,5 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="pivinput">
+                  <input
+                    id="pivnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="eso" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Trànsit Esofàgic (Esofagograma)</div>
+                    <span class="tooltiptext"
+                      >El bari es refereix al sulfat de bari barrejat amb aigua.
+                      Recobreix temporalment el tracte gastrointestinal i fa que
+                      les imatges de raigs X siguin més clares i detallades, la
+                      qual cosa ajuda al diagnòstic. S'usa per a visualitzar les
+                      estructures de l'esòfag o tub muscular que connecta la
+                      gola amb l'estómac.</span
+                    >
+                  </div>
+                  (24 imatges, 106 segons fluoroscòpia) (1,5 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="esoinput">
+                  <input
+                    id="esonum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="far" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Farina de bari</div>
+                    <span class="tooltiptext"
+                      >El bari es refereix al sulfat de bari barrejat amb aigua.
+                      Recobreix temporalment el tracte gastrointestinal i fa que
+                      les imatges de raigs X siguin més clares i detallades, la
+                      qual cosa ajuda al diagnòstic. La farina de bari és una
+                      prova de diagnòstic que s'usa per a detectar anomalies de
+                      l'esòfag o tub muscular que connecta la gola amb l'estómac
+                      i l'intestí prim.</span
+                    >
+                  </div>
+                  (11 imatges, 121 segons fluoroscòpia) (3 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="farinput">
+                  <input
+                    id="farnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="far2" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Seguiment de bari</div>
+                    <span class="tooltiptext"
+                      >El bari es refereix al sulfat de bari barrejat amb aigua.
+                      Recobreix temporalment el tracte gastrointestinal i fa que
+                      les imatges de raigs X siguin més clares i detallades, la
+                      qual cosa ajuda al diagnòstic. La farina de bari és una
+                      prova de diagnòstic que s'usa per a detectar anomalies de
+                      l'esòfag o tub muscular que connecta la gola amb l'estómac
+                      i l'intestí prim.</span
+                    >
+                  </div>
+                  (4 imatges, 78 segons fluoroscòpia) (3 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="far2input">
+                  <input
+                    id="far2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="en" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Ènema de bari</div>
+                    <span class="tooltiptext"
+                      >El bari es refereix al sulfat de bari barrejat amb aigua.
+                      Recobreix temporalment el tracte gastrointestinal i fa que
+                      les imatges de raigs X siguin més clares i detallades, la
+                      qual cosa ajuda al diagnòstic. Un ènema de bari és un
+                      examen de raigs X que pot detectar canvis o anormalitats
+                      en l'intestí gros (còlon). El procediment també es diu
+                      radiografia còlon. Un ènema és la injecció d'un líquid en
+                      el recte a través d'un tub petit.</span
+                    >
+                  </div>
+                  (10 imatges, 137 segons fluoroscòpia) (7 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="eninput">
+                  <input
+                    id="ennum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ctcap" />
+                  <div class="tooltip">
+                    <div class="tool-tip">CT</div>
+                    <span class="tooltiptext"
+                      >La tomografia computada, <b>TC</b>, és un procediment amb
+                      imatges que usa equip especial de raigs X per a crear
+                      imatges detallades, o exploracions, de regions internes
+                      del cos. A vegades, també es diu tomografia axial
+                      informatitzada <b>(TAC)</b>.</span
+                    >
+                  </div>
+                  cap (2 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ctcapinput">
+                  <input
+                    id="ctcapnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="cttor" />
+                  <div class="tooltip">
+                    <div class="tool-tip">CT</div>
+                    <span class="tooltiptext"
+                      >La tomografia computada, <b>TC</b>, és un procediment amb
+                      imatges que usa equip especial de raigs X per a crear
+                      imatges detallades, o exploracions, de regions internes
+                      del cos. A vegades, també es diu tomografia axial
+                      informatitzada <b>(TAC)</b>.</span
+                    >
+                  </div>
+                  tòrax (8 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="cttorinput">
+                  <input
+                    id="cttornum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ctab" />
+                  <div class="tooltip">
+                    <div class="tool-tip">CT</div>
+                    <span class="tooltiptext"
+                      >La tomografia computada, <b>TC</b>, és un procediment amb
+                      imatges que usa equip especial de raigs X per a crear
+                      imatges detallades, o exploracions, de regions internes
+                      del cos. A vegades, també es diu tomografia axial
+                      informatitzada <b>(TAC)</b>.</span
+                    >
+                  </div>
+                  abdomen (10 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ctabinput">
+                  <input
+                    id="ctabnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ctpel" />
+                  <div class="tooltip">
+                    <div class="tool-tip">CT</div>
+                    <span class="tooltiptext"
+                      >La tomografia computada, <b>TC</b>, és un procediment amb
+                      imatges que usa equip especial de raigs X per a crear
+                      imatges detallades, o exploracions, de regions internes
+                      del cos. A vegades, també es diu tomografia axial
+                      informatitzada <b>(TAC)</b>.</span
+                    >
+                  </div>
+                  pelvis (10 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ctpelinput">
+                  <input
+                    id="ctpelnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ctcaptor" />
+                  <div class="tooltip">
+                    <div class="tool-tip">CT</div>
+                    <span class="tooltiptext"
+                      >La tomografia computada, <b>TC</b>, és un procediment amb
+                      imatges que usa equip especial de raigs X per a crear
+                      imatges detallades, o exploracions, de regions internes
+                      del cos. A vegades, també es diu tomografia axial
+                      informatitzada <b>(TAC)</b>.</span
+                    >
+                  </div>
+                  cap y tòrax (11 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ctcaptorinput">
+                  <input
+                    id="ctcaptornum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ptca" />
+                  <div class="tooltip">
+                    <div class="tool-tip">PTCA</div>
+                    <span class="tooltiptext"
+                      >La angioplastía coronària transluminal percutània (PTCA),
+                      per les seves sigles en anglès es realitza per a obrir les
+                      artèries coronàries obstruïdes a causa de la malaltia de
+                      l'artèria coronària (CAD) i per a restaurar el flux
+                      sanguini arterial cap al teixit cardíac sense necessitat
+                      de recórrer a una cirurgia a cor obert.</span
+                    >
+                  </div>
+                  (estudi del cor) (7,5 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ptcainput">
+                  <input
+                    id="ptcanum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ang" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Angiografia coronària</div>
+                    <span class="tooltiptext"
+                      >És un procediment en el qual s'utilitza un tint especial
+                      (material de contrast) i raigs X per a observar la forma
+                      en què flueix la sang a través de les artèries en el
+                      cor.</span
+                    >
+                  </div>
+                  (4,6 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="anginput">
+                  <input
+                    id="angnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="mam" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Mamografia</div>
+                    <span class="tooltiptext"
+                      >Una mamografia és una imatge de la mama presa amb raigs
+                      X.</span
+                    >
+                  </div>
+                  (0,13 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="maminput">
+                  <input
+                    id="mamnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="lumb3" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Espina lumbar</div>
+                    <span class="tooltiptext"
+                      >Les cinc vèrtebres lumbars grans formen la part baixa de
+                      l'esquena de la columna, començant sota la caixa toràcica
+                      i acabant en la pelvis.</span
+                    >
+                  </div>
+                  sèrie (1,8 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="lumb3input">
+                  <input
+                    id="lumb3num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="tora" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Columna toràcica</div>
+                    <span class="tooltiptext"
+                      >Compost per dotze vèrtebres; s'estén aproximadament cinc
+                      polzades més enllà de la part inferior dels omòplats de la
+                      part superior i mitjana de l'esquena.</span
+                    >
+                  </div>
+                  sèrie (1,4 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="torainput">
+                  <input
+                    id="toranum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="cer" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Columna cervical</div>
+                    <span class="tooltiptext"
+                      >La columna cervical són les vèrtebres immediatament sota
+                      el crani.</span
+                    >
+                  </div>
+                  sèrie (0,27 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="cerinput">
+                  <input
+                    id="cernum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+              </div>
+            </div>
+
+            <!--    Medicina nuclear    -->
+
+            <div class="form-group">
+              <label class="container">
+                <input type="checkbox" name="casilla" id="medicalexams_2" />
+                Examen de medicina nuclear
+                <span class="checkmark"></span>
+              </label>
+
+              <div class="medicalexams" id="exam">
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="brain" /> Cervell -
+                  <div class="tooltip">
+                    <div class="tool-tip">Hidrocefàlia</div>
+                    <span class="tooltiptext"
+                      >La hidrocefàlia és una condició en la qual l'excés de
+                      líquid cefaloraquidi s'acumula dins dels ventricles
+                      (cavitats que contenen fluids) del cervell i pot augmentar
+                      la pressió dins del cap.</span
+                    >
+                  </div>
+                  (0,5 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="braininput">
+                  <input
+                    id="brainnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="hep" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Imatges hepatobiliars</div>
+                    <span class="tooltiptext"
+                      >La imatge hepatobiliària ajuda a avaluar el fetge, la
+                      vesícula gal·lar i els conductes hepàtics que formen part
+                      del sistema biliar.</span
+                    >
+                  </div>
+                  (0,05 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="hepinput">
+                  <input
+                    id="hepnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="os" /> Os (4,22 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="osinput">
+                  <input
+                    id="osnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="gpvp" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Perfusió/ventilació pulmonar</div>
+                    <span class="tooltiptext"
+                      >Una ventilació/perfusió pulmonar utilitza traçadors
+                      radioactius per mesurar el flux d'aire i sang als pulmons.
+                      S'utilitza més sovint per buscar una embòlia pulmonar i
+                      detectar una mala distribució de la sang en els
+                      pulmons.</span
+                    >
+                  </div>
+                  (2,3 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="gpvpinput">
+                  <input
+                    id="gpvpnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ren1" />Renograma -
+                  <div class="tooltip">
+                    <div class="tool-tip">Tc DTPA</div>
+                    <span class="tooltiptext"
+                      >El Tc99m-DTPA (àcid dietilè-triamina-penta-acètic) és un
+                      dels radiofarmacèutics més comuns, unit a una altra
+                      substància, com a mitjà per rastrejar la ubicació o el
+                      seguiment del moviment d'aquesta substància utilitzada com
+                      a forma d'imatge renal.</span
+                    >
+                  </div>
+                  (3,63 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ren1input">
+                  <input
+                    id="ren1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ren2" />Renograma -
+                  <div class="tooltip">
+                    <div class="tool-tip">Tc MAG3</div>
+                    <span class="tooltiptext"
+                      >Tc99m-MAG3 (mercaptoacetiltriglicina) és una de les
+                      radiofarmacèutiques més comunes, unides a una altra
+                      substància, com a mitjà per rastrejar la ubicació o el
+                      seguiment del moviment d'aquesta substància utilitzada com
+                      a forma d'imatge renal.</span
+                    >
+                  </div>
+                  (5,2 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ren2input">
+                  <input
+                    id="ren2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="tumga" />Tumor -
+                  <div class="tooltip">
+                    <div class="tool-tip">Ga</div>
+                    <span class="tooltiptext"
+                      >El gal·li és un metall tou, blanc platejat utilitzat com
+                      a tipus d'estudi de medicina nuclear que utilitza un
+                      traçador radioactiu per obtenir imatges d'un tipus
+                      específic de teixit, o estat de malaltia del teixit.</span
+                    >
+                  </div>
+                  (10 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="tumgainput">
+                  <input
+                    id="tumganum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="cor1" />Cor -
+                  <div class="tooltip">
+                    <div class="tool-tip">Tc sestimibi</div>
+                    <span class="tooltiptext"
+                      >Un agent farmacèutic utilitzat en la imatge de medicina
+                      nuclear. El fàrmac és un complex de coordinació que
+                      consisteix en un àtom central o ió, que normalment és
+                      metàl·lic i s'anomena centre de coordinació, i una sèrie
+                      envoltant de molècules o ions units, que al seu torn es
+                      coneixen com a agents complexos que consisteixen en el
+                      radioisòtop tecneci-99m.</span
+                    >
+                  </div>
+                  (9,9 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="cor1input">
+                  <input
+                    id="cor1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="cor2" />Cor -
+                  <div class="tooltip">
+                    <div class="tool-tip">Tc pertechnetate</div>
+                    <span class="tooltiptext"
+                      >L'ió pertecnetat s'utilitza sovint com una font soluble
+                      en aigua convenient d'isòtops de l'element radioactiu
+                      tecneci (Tc). En particular, s'utilitza per portar
+                      l'isòtop Tc-99m (vida mitjana 6 hores) que s'utilitza
+                      comunament en medicina nuclear en diversos procediments
+                      d'escaneig nuclear.</span
+                    >
+                  </div>
+                  (14,3 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="cor2input">
+                  <input
+                    id="cor2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="cor3" />Cor -
+                  <div class="tooltip">
+                    <div class="tool-tip">Clorur Tl</div>
+                    <span class="tooltiptext"
+                      >El clorur de tal·los (Tl) s'utilitza en adults per ajudar
+                      a diagnosticar malalties cardíaques. S'utilitza en
+                      procediments anomenats escintigrafia planar o tomografia
+                      computada per emissió d'un sol fotó (SPECT). Aquesta
+                      medicina mostra quanta sang arriba al múscul cardíac quan
+                      estàs descansant o fent exercici (estressat).</span
+                    >
+                  </div>
+                  (10,36 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="cor3input">
+                  <input
+                    id="cor3num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="cor4" />Cor -
+                  <div class="tooltip">
+                    <div class="tool-tip">Tc tetrofosmin</div>
+                    <span class="tooltiptext"
+                      >La tetrofosmina de Tc-99m s'utilitza per determinar àrees
+                      d'isquèmia reversible (un subministrament de sang
+                      inadequat a un òrgan o part del cos, especialment els
+                      músculs del cor) i teixit infartat (l'infart és la mort
+                      del teixit causada per una manca local d'oxigen, a causa
+                      d'una obstrucció del subministrament de sang del teixit)
+                      al cor.</span
+                    >
+                  </div>
+                  (7,59 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="cor4input">
+                  <input
+                    id="cor4num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="div" />Diverses -
+                  <div class="tooltip">
+                    <div class="tool-tip">F FDG</div>
+                    <span class="tooltiptext"
+                      >La fludeoxiglucosa és un radiofarmacèutic utilitzat en la
+                      modalitat d'imatge mèdica de tomografia per emissió de
+                      positrons (PET).</span
+                    >
+                  </div>
+                  (7 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="divinput">
+                  <input
+                    id="divnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="container">
+                <input type="checkbox" name="casilla" id="medicalexams_3" />
+                Examen de medicina nuclear per al fetus
+                <span class="checkmark"></span>
+              </label>
+
+              <div class="medicalexams" id="fetusexam">
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="os2" /> Os (4,6 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="os2input">
+                  <input
+                    id="os2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="pp" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Perfusió pulmonar</div>
+                    <span class="tooltiptext"
+                      >Una ventilació/perfusió pulmonar utilitza traçadors
+                      radioactius per mesurar el flux d'aire i sang als pulmons.
+                      S'utilitza més sovint per buscar una embòlia pulmonar i
+                      detectar una mala distribució de la sang en els
+                      pulmons.</span
+                    >
+                  </div>
+                  (0,56 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ppinput">
+                  <input
+                    id="ppnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="tir" />Tiroide -
+                  <div class="tooltip">
+                    <div class="tool-tip">NaI</div>
+                    <span class="tooltiptext"
+                      >El iodur de sodi (les sals de iodur radioactius del sodi)
+                      s'utilitza àmpliament per a estudis de tiroides
+                      diagnòstics, incloent-hi l'absorció (el terme absorció
+                      quan s'utilitza en connexió amb el mètode d'imatge, es
+                      refereix a la quantitat de material radioactiu que es pren
+                      en els ossos o òrgans per facilitar la imatge) i la
+                      imatge.</span
+                    >
+                  </div>
+                  (0,6 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="tirinput">
+                  <input
+                    id="tirnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="tum" />Tumor
+                  <div class="tooltip">
+                    <div class="tool-tip"></div>
+                  </div>
+                  (18 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="tuminput">
+                  <input
+                    id="tumnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="vp" />
+                  <div class="tooltip">
+                    <div class="tool-tip">Ventilació pulmonar</div>
+                    <span class="tooltiptext"
+                      >Una ventilació/perfusió pulmonar utilitza traçadors
+                      radioactius per mesurar el flux d'aire i sang als pulmons.
+                      S'utilitza més sovint per buscar una embòlia pulmonar i
+                      detectar una mala distribució de la sang en els
+                      pulmons.</span
+                    >
+                  </div>
+                  (0,54 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="vpinput">
+                  <input
+                    id="vpnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="cor5" />Cor -
+                  <div class="tooltip">
+                    <div class="tool-tip"></div>
+                    <span class="tooltiptext"></span>
+                  </div>
+                  (5,3 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="cor5input">
+                  <input
+                    id="cor5num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ren3" />Renograma -
+                  <div class="tooltip">
+                    <div class="tool-tip">Tc99m-MAG3</div>
+                    <span class="tooltiptext"
+                      >El Tc99m-MAG3 (mercaptoacetiltriglicina) és un dels
+                      radiofarmacèutics més comuns, unit a una altra substància,
+                      com a mitjà per rastrejar la ubicació o el seguiment del
+                      moviment d'aquesta substància utilitzada com a forma
+                      d'imatge renal.</span
+                    >
+                  </div>
+                  (14 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ren3input">
+                  <input
+                    id="ren3num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="ren4" />Renograma -
+                  <div class="tooltip">
+                    <div class="tool-tip">Tc DTPA</div>
+                    <span class="tooltiptext"
+                      >El Tc99m-DTPA (àcid dietilè-triamina-penta-acètic) és un
+                      dels radiofarmacèutics més comuns, unit a una altra
+                      substància, com a mitjà per rastrejar la ubicació o el
+                      seguiment del moviment d'aquesta substància utilitzada com
+                      a forma d'imatge renal.</span
+                    >
+                  </div>
+                  (9 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="ren4input">
+                  <input
+                    id="ren4num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="fet" /> Fetge (6
+                  mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="fetinput">
+                  <input
+                    id="fetnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="inf1" /> Infecció -
+                  glòbuls blancs (Tc) (0,76 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="inf1input">
+                  <input
+                    id="inf1num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="inf2" /> Infecció -
+                  glòbuls blancs (In) (2,6 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="inf2input">
+                  <input
+                    id="inf2num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="mel" /> Fetge/Melsa
+                  (0,54 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="melinput">
+                  <input
+                    id="melnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="braintir" /> Cervell
+                  o tiroide (12 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="braintirinput">
+                  <input
+                    id="braintirnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="flux" /> Flux de
+                  sang/cor (6 mSv)
+                  <span class="checkmark"></span>
+                </label>
+
+                <div id="fluxinput">
+                  <input
+                    id="fluxnum"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="container">
+                <input type="checkbox" name="casilla" id="medicalexams_4" />
+                Examen de raigs X durant l'embaràs
+                <span class="checkmark"></span>
+              </label>
+
+              <div class="medicalexams" id="pregexam">
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="pelv3" /> Pelvis (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  ) (1,44 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="pelv3input">
+                  <input
+                    id="pelv3num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="pelv4" /> Pelvis (
+                  <div class="tooltip">
+                    <div class="tool-tip">PA</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>posteroanterior (PA)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte posterior (esquena) del tòrax i
+                      tornen per l'aspecte anterior (frontal).</span
+                    >
+                  </div>
+                  ) (0,4 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="pelv4input">
+                  <input
+                    id="pelv4num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="pelv5" /> Pelvis (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (0,53 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="pelv5input">
+                  <input
+                    id="pelv5num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="dor3" /> Vèrtebres
+                  dorsals (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  ) (CDV ample) (18 µSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="dor3input">
+                  <input
+                    id="dor3num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="dor4" /> Vèrtebres
+                  dorsals (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  ) (estreta) (12 µSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="dor4input">
+                  <input
+                    id="dor4num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="dor5" /> Vèrtebres
+                  dorsals (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (6 µSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="dor5input">
+                  <input
+                    id="dor5num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="lumb4" /> Vèrtebres
+                  lumbars (
+                  <div class="tooltip">
+                    <div class="tool-tip">AP</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>anteroposterior (AP)</b>, la font de
+                      raigs X es troba posicionada de manera tal que els raigs X
+                      ingressen per l'aspecte anterior (frontal) del tòrax i
+                      tornen per l'aspecte posterior (esquena).</span
+                    >
+                  </div>
+                  ) (2,25 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="lumb4input">
+                  <input
+                    id="lumb4num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+
+                <label class="container">
+                  <input type="checkbox" name="casilla" id="lumb5" /> Vèrtebres
+                  lumbars (
+                  <div class="tooltip">
+                    <div class="tool-tip">Lateral</div>
+                    <span class="tooltiptext"
+                      >En una vista <b>lateral</b>, la font de raigs X es troba
+                      posicionada de manera tal que els raigs X ingressen per un
+                      costat i tornen per.</span
+                    >
+                  </div>
+                  ) (1,13 mSv)
+                  <span class="checkmark"></span>
+                </label>
+                <div id="lumb5input">
+                  <input
+                    id="lumb5num"
+                    oninput="getMedRad()"
+                    type="number"
+                    class="number-input-small"
+                    min="0"
+                  />
+                  a l'any
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--    Radiació Interna   -->
+
+          <div class="typeRad" id="internalRad">
+            <h3>
+              Radiació interna
+              <span id="internalDose" class="internalDose"></span> mSv
+            </h3>
+            <div
+              class="arrow-internalRad"
+              onclick="internalRad_display()"
+            ></div>
+            <div class="internalRad-des-div">
+              <p class="radDescription">Descripció</p>
+            </div>
+            <div class="internalRad-des-div-dis">
+              <p class="Rad-des-text">
+                La radiació interna dels éssers vius és el resultat de la
+                presència de materials radioactius dins dels seus teixits i
+                òrgans. Aquesta radiació prové de diverses fonts, com són
+                l'alimentació, l'aire que respirem i l'exposició ambiental que
+                rebem.
+              </p>
+              <p class="Rad-des-text">
+                Un dels materials radioactius presents en l'entorn és el
+                potassi-40, un isòtop radioactiu del potassi que es troba en
+                aliments com plàtans, patates i fruits secs. El potassi-40 emet
+                radiació gamma quan es desintegra.
+              </p>
+            </div>
+
+            <div class="grid">
+              <p>Radiació interna d'aliments i aigua</p>
+
+              <p style="text-align: center">0,29 mSv</p>
+            </div>
+
+            <label class="container">
+              <input
+                id="teeth"
+                type="checkbox"
+                value=".0007"
+                onchange="getInternalRad()"
+              />
+              <span class="checkmark"></span>
+              Tinc corones de porcellana o dents falses (0,7 µSv)
+            </label>
+          </div>
+
+          <!--    Radiació Còsmica   -->
+
+          <div class="typeRad" id="cosmicRad">
+            <h4>
+              Radiació còsmica
+              <span id="cosmicDose" class="cosmicDose"></span> mSv
+            </h4>
+            <div class="arrow-cosmicRad" onclick="cosmicRad_display()"></div>
+            <div class="cosmicRad-des-div">
+              <p class="radDescription">Descripció</p>
+            </div>
+            <div class="cosmicRad-des-div-dis">
+              <p class="Rad-des-text">
+                La radiació còsmica (raigs còsmics) són partícules
+                (principalment, protons i partícules alfa, que anomenem
+                partícules primàries) provinents de l'espai exterior de molt
+                alta energia. Aquestes partícules primàries interactuen amb
+                l'atmosfera i es converteixen en partícules secundàries.
+              </p>
+              <p class="Rad-des-text">
+                Les partícules primàries són les que constitueixen la major part
+                de la dosi que rebem de la radiació còsmica. És per això que la
+                dosi augmenta amb l'altitud.
+              </p>
+            </div>
+
+            <p>
+              Quina és l'altitud (en metres) del poble/ciutat on vius? (Pots
+              consultar-la
+              <a
+                class="href"
+                href="https://whatismyelevation.com/es/"
+                target="_blank"
+                >aquí</a
+              >)
+            </p>
+
+            <div class="radio-list">
+              <label>
+                <input
+                  checked="checked"
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0"
+                  onchange="getCosmicRad(this)"
+                />
+                A prop del nivell del mar (menys de 50 m) (0,26 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.02"
+                  onchange="getCosmicRad(this)"
+                />
+                De 50 a 300 m (0,28 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.05"
+                  onchange="getCosmicRad(this)"
+                />
+                De 300 a 600 m (0,31 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.09"
+                  onchange="getCosmicRad(this)"
+                />
+                De 600 a 900 m (0,35 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.15"
+                  onchange="getCosmicRad(this)"
+                />
+                De 900 a 1200 m (0,41 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.21"
+                  onchange="getCosmicRad(this)"
+                />
+                De 1200 a 1500 m (0,47 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.29"
+                  onchange="getCosmicRad(this)"
+                />
+                De 1500 a 1800 m (0,55 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.40"
+                  onchange="getCosmicRad(this)"
+                />
+                De 1800 a 2100 m (0,66 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.53"
+                  onchange="getCosmicRad(this)"
+                />
+                De 2100 a 2400 m (0,79 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="elev"
+                  type="radio"
+                  class="radio"
+                  value="0.70"
+                  onchange="getCosmicRad(this)"
+                />
+                Per sobre de 2400 m (0,96 mSv)
+              </label>
+            </div>
+          </div>
+
+          <!--    Radiació relacionada amb els viatges   -->
+          <div class="typeRad" id="travelRad">
+            <h5>
+              Radiació relacionada amb viatges
+              <span id="travelDose" class="travelDose"></span> mSv
+            </h5>
+            <div class="arrow-travelRad" onclick="travelRad_display()"></div>
+            <div class="travelRad-des-div">
+              <p class="radDescription">Descripció</p>
+            </div>
+            <div class="travelRad-des-div-dis">
+              <p class="Rad-des-text">
+                Quan viatgem en avió, donat que estem a una altitud bastant més
+                gran que en qualsevol ciutat, rebem una major dosi de radiació
+                còsmica. Aquesta dosi augmenta amb el temps d'exposició
+                (considerant que l'altitud en tots els viatges en avió és més o
+                menys la mateixa), és a dir, quantes hores estem a l'aire, ja
+                que rebrem més partícules.
+              </p>
+            </div>
+
+            <div class="grid">
+              <div>
+                <p>
+                  Quantes hores has viatjat en avió enguany (aproximadament)? (3
+                  µSv per cada hora a l'aire)
+                </p>
+              </div>
+
+              <div>
+                <input
+                  class="number-input"
+                  type="number"
+                  id="travelTime"
+                  min="0"
+                  step="1"
+                  value="0"
+                  oninput="getTravelRad()"
+                />
+              </div>
+            </div>
+            <label class="container">
+              <input
+                id="luggage"
+                type="checkbox"
+                value=".00002"
+                onchange="getTravelRad()"
+              />
+              <span class="checkmark"></span>
+              He passat per la inspecció de raigs X de l'equipatge a l'aeroport
+              (0,02 µSv)
+            </label>
+
+            <label class="container">
+              <input
+                id="lantern"
+                type="checkbox"
+                value=".00003"
+                onchange="getTravelRad()"
+              />
+              <span class="checkmark"></span>
+              Utilitzo llanterna de gas per acampar (0,03 µSv)
+            </label>
+          </div>
+
+          <!--    Altres fonts   -->
+
+          <div class="typeRad" id="otherRad">
+            <h6>
+              Altres fonts
+              <span id="otherDose" class="otherDose"></span> mSv
+            </h6>
+            <div class="arrow-otherRad" onclick="otherRad_display()"></div>
+            <div class="otherRad-des-div">
+              <p class="radDescription">Descripció</p>
+            </div>
+            <div class="otherRad-des-div-dis">
+              <p class="Rad-des-text">
+                En aquest apartat s'inclouen altres fonts que no es poden
+                classificar en les altres categories, i cadascuna té un fonament
+                diferent. Aquestes serveixen específicament perquè l'usuari
+                pugui comparar la perillositat de cada font amb les altres
+                (inclosos els plàtans).
+              </p>
+            </div>
+
+            <div class="grid">
+              <div>
+                <p>
+                  Si treballes amb radiació, escriu la teva exposició anual aquí
+                  (en mSv)
+                </p>
+              </div>
+
+              <div>
+                <input
+                  class="number-input"
+                  type="number"
+                  id="workerRad"
+                  min="0"
+                  step="1"
+                  value="0"
+                  oninput="getOtherRad()"
+                />
+              </div>
+            </div>
+
+            <div class="grid">
+              <div>
+                Quants cigarrets fumes al dia? (0,245 µSv per cigarret)
+                <div class="tooltip">
+                  <div class="tool-tip">
+                    <img
+                      class="info-image-small"
+                      src="images/question-black.png"
+                      width="15px"
+                    />
+                  </div>
+                  <span class="tooltiptext-big">
+                    Els fertilitzants que s'utilitzen per cultivar tabac
+                    contenen <b>radi</b> i els seus productes quan es
+                    desintegra. A mesura que la planta creix, el radó procedent
+                    d'adobs, juntament amb el radó que es produeix de forma
+                    natural en el sòl i roques circumdants, es transfereixen a
+                    la planta. Un dels productes de desintegració del radó, el
+                    <b>poloni-210</b>, comporta molt més risc que els altres una
+                    vegada està dins del cos, ja que és un <b>emissor alfa</b>.
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <input
+                  class="number-input"
+                  type="number"
+                  id="smokingRad"
+                  min="0"
+                  step="1"
+                  value="0"
+                  oninput="getOtherRad()"
+                />
+              </div>
+            </div>
+
+            <label class="container">
+              <input
+                id="building"
+                type="checkbox"
+                value=".07"
+                onchange="getOtherRad()"
+              />
+              <span class="checkmark"></span>
+              Visc en un edifici de pedra, maó o formigó (0,07 mSv)
+            </label>
+
+            <label class="container">
+              <input
+                id="wristwatch"
+                type="checkbox"
+                value=".0006"
+                onchange="getOtherRad()"
+              />
+              <span class="checkmark"></span>
+              Porto un rellotge lluminós (0,6 µSv)
+            </label>
+
+            <label class="container">
+              <input
+                id="detector"
+                type="checkbox"
+                value=".00008"
+                onchange="getOtherRad()"
+              />
+              <span class="checkmark"></span>
+              Tinc un detector de fum a casa (0,08 µSv)
+            </label>
+
+            <label class="container">
+              <input
+                id="nuclear"
+                type="checkbox"
+                value=".00009"
+                onchange="getOtherRad()"
+              />
+              <span class="checkmark"></span>
+              Visc a prop d'una central nuclear (0,09 µSv)
+            </label>
+
+            <label class="container">
+              <input
+                id="coal"
+                type="checkbox"
+                value=".0003"
+                onchange="getOtherRad()"
+              />
+              <span class="checkmark"></span>
+              Visc a menys de 80 km d'una central elèctrica de carbó (0,3 µSv)
+            </label>
+
+            <label class="container">
+              <input
+                id="sleep"
+                type="checkbox"
+                value=".01"
+                onchange="getOtherRad()"
+              />
+              <span class="checkmark"></span>
+              Dormo al costat d'algú cada nit durant tot/quasi tot l'any (0,01
+              mSv)
+              <div class="tooltip">
+                <div class="tool-tip">
+                  <img
+                    class="info-image-small"
+                    src="images/question-black.png"
+                    width="15px"
+                  />
+                </div>
+                <span class="tooltiptext-big">
+                  Una part de la <b>radiació interna</b>, producte de
+                  radionúclids presents al nostre cos, fuig cap a l'exterior. És
+                  per això que en dormir al costat d'algú durant un període de
+                  temps prolongat comporta una petita dosi de radiació extra.
+                </span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!--          Radiació terrestre            -->
+
+        <div class="typeRad" id="terrestrialRad">
+          <div class="h7">
+            <p class="h7-text">
+              Radiació terrestre
+              <span id="terrestrialDose" class="terrestrialDose"></span> mSv
+            </p>
+          </div>
+          <div
+            class="arrow-terrestrialRad"
+            onclick="terrestrialRad_display()"
+          ></div>
+          <div class="terrestrialRad-des-div">
+            <p class="radDescription">Descripció</p>
+          </div>
+          <div class="terrestrialRad-des-div-dis">
+            <p class="Rad-des-text">
+              La radiació terrestre és la radiació originada per la
+              desintegració de materials radioactius que es troben a la geosfera
+              (al sòl). Alguns d'aquests materials són bastant coneguts, com
+              l'urani, el potassi o el tori.
+            </p>
+            <p class="Rad-des-text">
+              La dosi que rebem de radiació terrestre depèn de la concentració
+              d'aquests materials radioactius del sòl on estiguem. Per facilitar
+              l'ús de la calculadora, es presenten les dosis estimades per a
+              cada província.
+            </p>
+          </div>
+
+          <p class="ter-text">A quina província d'Espanya (peninsular) vius?</p>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadAndalucia"
+              onclick="mostrarProvincias('Andalucia')"
+            />
+            <span class="checkmark"></span>
+            Andalusia
+          </label>
+
+          <div class="provincia" data-comunidad="Andalucia">
+            <div class="radio-list">
+              <div class="radio-list">
+                <label>
+                  <input
+                    name="ter"
+                    type="radio"
+                    class="radio"
+                    value=".47"
+                    onchange="getTerrestrialRad(this)"
+                  />
+                  Cadis (0,47 mSv)
+                </label>
+              </div>
+              <div class="radio-list">
+                <label>
+                  <input
+                    name="ter"
+                    type="radio"
+                    class="radio"
+                    value=".53"
+                    onchange="getTerrestrialRad(this)"
+                  />
+                  Almeria (0,53 mSv)
+                </label>
+              </div>
+              <div class="radio-list">
+                <label>
+                  <input
+                    name="ter"
+                    type="radio"
+                    class="radio"
+                    value=".6"
+                    onchange="getTerrestrialRad(this)"
+                  />
+                  Sevilla i Granada (0,6 mSv)
+                </label>
+              </div>
+              <div class="radio-list">
+                <label>
+                  <input
+                    name="ter"
+                    type="radio"
+                    class="radio"
+                    value=".63"
+                    onchange="getTerrestrialRad(this)"
+                  />
+                  Màlaga (0,63 mSv)
+                </label>
+              </div>
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".66"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Huelva (0,66 mSv)
+              </label>
+              <div class="radio-list">
+                <label>
+                  <input
+                    name="ter"
+                    type="radio"
+                    class="radio"
+                    value=".7"
+                    onchange="getTerrestrialRad(this)"
+                  />
+                  Jaén (0,7 mSv)
+                </label>
+              </div>
+              <div class="radio-list">
+                <label>
+                  <input
+                    name="ter"
+                    type="radio"
+                    class="radio"
+                    value=".8"
+                    onchange="getTerrestrialRad(this)"
+                  />
+                  Còrdova (0,8 mSv)
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadAragó"
+              onclick="mostrarProvincias('Aragó')"
+            />
+            <span class="checkmark"></span>
+            Aragó
+          </label>
+
+          <div class="provincia" data-comunidad="Aragó">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".58"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Terol (0,58 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".65"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Saragossa (0,65 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".68"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Osca (0,68 mSv)
+              </label>
+            </div>
+          </div>
+
+          <div class="radio-list">
+            <label>
+              <input
+                name="ter"
+                type="radio"
+                class="radio"
+                value=".87"
+                onchange="getTerrestrialRad(this)"
+              />
+              Astúries (0,87 mSv)
+            </label>
+          </div>
+
+          <div class="radio-list">
+            <label>
+              <input
+                name="ter"
+                type="radio"
+                class="radio"
+                value=".58"
+                onchange="getTerrestrialRad(this)"
+              />
+              Cantàbria (0,58 mSv)
+            </label>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadCastella i Lleó"
+              onclick="mostrarProvincias('Castella i Lleó')"
+            />
+            <span class="checkmark"></span>
+            Castella i Lleó
+          </label>
+          <div class="provincia" data-comunidad="Castella i Lleó">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".59"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Sòria (0,59 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".6"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Burgos i Palència (0,6 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".78"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Lleó (0,78 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".8"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Valladolid (0,8 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".86"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Zamora (0,86 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".89"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Segòvia (0,89 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value="1.08"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Salamanca (1,08 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value="1.33"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Àvila (1,33 mSv)
+              </label>
+            </div>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadCastella-la Manxa"
+              onclick="mostrarProvincias('Castella-la Manxa')"
+            />
+            <span class="checkmark"></span>
+            Castella-la Manxa
+          </label>
+          <div class="provincia" data-comunidad="Castella-la Manxa">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".55"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Província de Conca (0,55 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".6"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Guadalajara (0,6 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".69"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Ciudad Real (0,69 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value="1.09"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Toledo (1,09 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".46"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Albacete (0,46 mSv)
+              </label>
+            </div>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadCatalunya"
+              onclick="mostrarProvincias('Catalunya')"
+            />
+            <span class="checkmark"></span>
+            Catalunya
+          </label>
+          <div class="provincia" data-comunidad="Catalunya">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".52"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Tarragona (0,52 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".62"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Barcelona (0,62 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".7"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Lleida (0,7 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".8"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Girona (0,8 mSv)
+              </label>
+            </div>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadExtremadura"
+              onclick="mostrarProvincias('Extremadura')"
+            />
+            <span class="checkmark"></span>
+            Extremadura
+          </label>
+          <div class="provincia" data-comunidad="Extremadura">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".92"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Badajoz (0,92 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value="1.14"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Càceres (1,14 mSv)
+              </label>
+            </div>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadGalícia"
+              onclick="mostrarProvincias('Galícia')"
+            />
+            <span class="checkmark"></span>
+            Galícia
+          </label>
+          <div class="provincia" data-comunidad="Galícia">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".96"
+                  onchange="getTerrestrialRad(this)"
+                />
+                La Corunya (0,96 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value="1.19"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Lugo (1,19 mSv)
+              </label>
+            </div>
+
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value="1.26"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Ourense (1,26 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value="1.5"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Pontevedra (1,5 mSv)
+              </label>
+            </div>
+          </div>
+
+          <div class="radio-list">
+            <label>
+              <input
+                name="ter"
+                type="radio"
+                class="radio"
+                value=".64"
+                onchange="getTerrestrialRad(this)"
+              />
+              La Rioja (0,64 mSv)
+            </label>
+          </div>
+
+          <div class="radio-list">
+            <label>
+              <input
+                name="ter"
+                type="radio"
+                class="radio"
+                value="1.12"
+                onchange="getTerrestrialRad(this)"
+              />
+              Madrid (1,12 mSv)
+            </label>
+          </div>
+
+          <div class="radio-list">
+            <label>
+              <input
+                name="ter"
+                type="radio"
+                class="radio"
+                value=".4"
+                onchange="getTerrestrialRad(this)"
+              />
+              Múrcia (0,4 mSv)
+            </label>
+          </div>
+
+          <div class="radio-list">
+            <label>
+              <input
+                name="ter"
+                type="radio"
+                class="radio"
+                value=".68"
+                onchange="getTerrestrialRad(this)"
+              />
+              Navarra (0,68 mSv)
+            </label>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadPaís Basc"
+              onclick="mostrarProvincias('País Basc')"
+            />
+            <span class="checkmark"></span>
+            País Basc
+          </label>
+          <div class="provincia" data-comunidad="País Basc">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".61"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Àlaba (0,61 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".73"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Biscaia (0,73 mSv)
+              </label>
+            </div>
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".93"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Guipúscoa (0,93 mSv)
+              </label>
+            </div>
+          </div>
+
+          <label class="container">
+            <input
+              type="checkbox"
+              id="comunidadPaís Valencià"
+              onclick="mostrarProvincias('País Valencià')"
+            />
+            <span class="checkmark"></span>
+            País Valencià
+          </label>
+          <div class="provincia" data-comunidad="País Valencià">
+            <div class="radio-list">
+              <label>
+                <input
+                  name="ter"
+                  type="radio"
+                  class="radio"
+                  value=".43"
+                  onchange="getTerrestrialRad(this)"
+                />
+                Castelló, València i Alacant (0,43 mSv)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!--        Radó       -->
+
+        <div class="typeRadRadon" id="RadonRad">
+          <h2>
+            Radó
+            <span id="radonDose" class="radonDose"></span> mSv
+          </h2>
+          <div
+            class="arrow-RadonRad"
+            onclick="RadonRad_display(), handleScroll()"
+          ></div>
+          <div class="RadonRad-des-div">
+            <p class="radDescription">Descripció</p>
+          </div>
+          <div class="RadonRad-des-div-dis">
+            <p class="Rad-des-text">
+              El radó és un gas radioactiu inodor i incolor que es produeix per
+              la desintegració de l'urani. La raó per la qual no està inclòs el
+              radó en l'apartat de radiació terrestre és perquè aquest, en ser
+              un gas, es filtra per les porositats del sòl i arriba a la
+              superfície, acumulant-se en els habitatges. Això fa que el radó
+              sigui més perillós que qualsevol altra font de radiació natural.
+            </p>
+          </div>
+
+          <div class="grid">
+            <div>
+              <p>Has examinat casa teva per detectar el radó?</p>
+            </div>
+
+            <div class="radio">
+              <label>
+                <input id="siRadon" type="radio" name="radon" value="si" /> Sí
+              </label>
+              <label>
+                <input
+                  id="noRadon"
+                  type="radio"
+                  name="radon"
+                  value="no"
+                  checked
+                  onclick="document.getElementById('radonbqm').value = ''"
+                />
+                No
+              </label>
+            </div>
+
+            <div id="radonDiv" onchange="toggleradon()">
+              <div class="grid">
+                <div>
+                  <p>
+                    Si has examinat casa teva per a detectar radó, escriu els
+                    resultats de la teva prova en Bq/m<sup>3</sup> (per exemple,
+                    10,5 Bq/m<sup>3</sup> s'escriuria com 10,5)
+                  </p>
+                </div>
+
+                <div>
+                  <input
+                    class="number-input-big"
+                    type="number"
+                    id="radonbqm"
+                    min="0"
+                    step="1"
+                    oninput="getRadonRad()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="radonDivNo" onchange="toggleradonNo()">
+            <div class="grid">
+              <div>
+                <p>
+                  Si no ho has fet, utilitza aquest
+                  <a
+                    target="_blank"
+                    href="https://www.arcgis.com/apps/SimpleViewer/index.html?appid=a3a435cfb6114e21ad03a5ac2961d8a8"
+                    >mapa</a
+                  >
+                  per saber el potencial de radó de la teva zona i selecciona'l.
+                </p>
+
+                <p>
+                  (Pots escriure el nom de la teva ciutat a dalt a la dreta)
+                </p>
+              </div>
+
+              <div>
+                <select
+                  id="radonPot"
+                  class="form-select"
+                  onchange="getRadonRad()"
+                >
+                  <option value="219">P90 major que 400 Bq/m3</option>
+                  <option value="117">P90 entre 301 i 400 Bq/m3</option>
+                  <option value="93">P90 entre 201 i 300 Bq/m3</option>
+                  <option value="67">P90 entre 101 y 200 Bq/m3</option>
+                  <option value="38">P90 menor que 100 Bq/m3</option>
+                  <option selected value="0"></option>
+                </select>
+              </div>
+
+              <p>
+                Els nivells de radó poden ser molt diferents
+                d'una casa a una altra, fins i tot en la mateixa
+                àrea. L'única manera de saber amb certesa quina
+                quantitat de radó hi ha en la teva casa és mesurant-la
+                directament.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--        Resultats       -->
+
+      <div id="result" class="sidebar">
+        <div name="sievert-dose" class="sidebar-line">
+          <p class="result-text">La teva dosi anual de radiació és de</p>
+          <p class="result-text-big"><span id="radDose"></span></p>
+          <p class="result-text">o</p>
+          <p class="result-text-big">
+            <span id="bananaDose"></span>
+            <a href="info/BED.html" target="_blank" class="info"
+              ><img
+                class="info-image"
+                src="images/question-white.png"
+                width="20px"
+            /></a>
+          </p>
+          <p class="result-text-small2">
+            La dosi mitjana anual mundial és de <b>2,4 mSv</b> 
+          </p>
+          <p class="result-text-small2">
+            La d'Espanya és de <b>3,7 mSv</b>
+          </p>
+        </div>
+
+        <div class="medidorDiv">
+          <div class="fondo-medidor">
+            <div class="medidor">
+              <div
+                class="bloque verde"
+              ></div>
+              <div
+                class="bloque amarillo"
+              ></div>
+              <div
+                class="bloque naranja"
+              ></div>
+              <div
+                class="bloque rojo"
+              ></div>
+              <div class="marcador"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hazard">
+          <div class="hazard-title">
+            <p class="hazard-text">Perillositat:</p>
+            <p class="dangerLevel">
+              <span id="doseLevel"></span>
+            </p>
+          </div>
+
+          <div class="chart-div">
+            <div class="chart">
+              <canvas id="myChart"></canvas>
+            </div>
+
+            <div class="med-color"></div>
+            <div class="int-color"></div>
+            <div class="cos-color"></div>
+            <div class="tra-color"></div>
+            <div class="ot-color"></div>
+            <div class="ter-color"></div>
+            <div class="rad-color"></div>
+
+            <div class="legend-div">
+              <p class="legend-text">Mèdica</p>
+              <p class="legend-text">Interna</p>
+              <p class="legend-text">Còsmica</p>
+              <p class="legend-text">Viatges</p>
+              <p class="legend-text">Altres Fonts</p>
+              <p class="legend-text">Terrestre</p>
+              <p class="legend-text">Radó</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="space"></div>
+
+    <div class="more-info-footer">
+      <p class="sources-moreinfo">Referències</p>
+
+      <div class="sources-grid">
+        <div class="med-source">
+          <p class="source">Radiació Mèdica</p>
+          <ul>
+            <li class="references">
+              Stabin, M. G. [Michael]. (2005). Doses from Medical Radiation
+              Sources.
+              <i>Health Physics Society</i>.
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://hps.org/hpspublications/articles/dosesfrommedicalradiation.html"
+                >https://hps.org/hpspublications/articles/dosesfrommedicalradiation.html</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="cosm-source">
+          <p class="source">Radiació Còsmica</p>
+          <ul>
+            <li class="references">
+              Agència de Protecció Ambiental dels Estats Units. (2023).
+              <i>Cosmic Radiation</i>
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.epa.gov/radtown/cosmic-radiation#:~:text=Radiation%20from%20space%20is%20called,radiation%20exposure%20from%20cosmic%20radiation."
+                >https://www.epa.gov/radtown/cosmic-radiation/radiationexposurefromcosmicradiation.</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="ter-source">
+          <p class="source">Radiació Terrestre</p>
+          <ul>
+            <li class="references">
+              Consejo de Seguridad Nuclear (CSN) i Empresa Nacional del Uranio,
+              SA (ENUSA). (2000).
+              <i>Proyecto MARNA. Mapa de radiación gamma natural.</i>
+              (INT-04-02). CSN, Centro de documentación.
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.csn.es/documents/10182/27786/INT-04-02+Proyecto+Marna.+Mapa+de+radiaci%C3%B3n+gamma+natural/6185a9df-6c24-4ac1-8d8d-197003e09401"
+                >https://www.csn.es/documents/10182/27786/INT-04-02+Proyecto+Marna.+Mapa+de+radiacon+gamma+natural</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="radon-source">
+          <p class="source">Radó</p>
+          <ul>
+            <li class="references">
+              Consejo de Seguridad Nuclear (CSN). (2023).
+              <i>Mapa del potencial de radón en España</i>
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.csn.es/mapa-del-potencial-de-radon-en-espana"
+                >https://www.csn.es/mapa-del-potencial-de-radon-en-espana</a
+              >
+            </li>
+            <li class="references">
+              Consejo de Seguridad Nuclear (CSN). (2024).
+              <i>Consejo de Seguridad Nuclear</i>
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.csn.es/radon"
+                >https://www.csn.es/radon</a
+              >
+            </li>
+            <li class="references">
+              Guindós, L. [Luis]. (1995).
+              <i>Radón: Un gas radiactivo de origen natural en su casa. </i>
+              Consejo de Seguridad Nuclear.
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://elradon.com/wp-content/uploads/2018/10/LibroRADON_low.pdf"
+                >https://elradon.com/wp-content/uploads/2018/10/LibroRADON_low.pdf</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="other-source">
+          <p class="source">Altres</p>
+          <ul>
+            <li class="references">
+              Consejo de Seguridad Nuclear (CSN). (2010).
+              <i>Dosis de radiación</i>
+              (SDB-04.07). Consejo de Seguridad Nuclear.
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.csn.es/documents/10182/914805/Dosis%20de%20radiaci%C3%B3n"
+                >https://www.csn.es/documents/10182/914805/Dosisderadiacipn</a
+              >
+            </li>
+            <li class="references">
+              Consejo de Seguridad Nuclear (CSN). (2012).
+              <i>Protección radiológica</i>
+              (SDB....). Consejo de Seguridad Nuclear.
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.csn.es/documents/10182/914805/Protecci%C3%B3n%20radiol%C3%B3gica"
+                >https://www.csn.es/documents/10182/914805/Proteccionradiologica</a
+              >
+            </li>
+            <li class="references">
+              Department of Energy. (2018).
+              <i>The DOE Ionizing Radiation Dose Ranges Chart</i>
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.energy.gov/sites/prod/files/2018/01/f46/doe-ionizing-radiation-dose-ranges-jan-2018.pdf"
+                >https://www.energy.gov/sites/prod/files/2018/01/f46/doe-ionizing-radiation-dose-ranges-jan-2018.pdf</a
+              >
+            </li>
+            <li class="references">
+              United States Environmental Protection Agency. (2024).
+              <i>Calculate Your Radiation Dose</i>
+              <a
+                class="references-link"
+                target="_blank"
+                href="https://www.epa.gov/radiation/calculate-your-radiation-dose"
+                >https://www.epa.gov/radiation/calculate-your-radiation-dose</a
+              >
+            </li>
+            <li class="references">
+              Gonzálex, G. [Gabriel] i Rabin, C. [Carolina]. (2011).
+              <i
+                >Para entender las radiaciones: energía nuclear, medicina,
+                industria.</i
+              >
+              Montevideo [URUGUAY] : Facultad de Ciencias.
+              <a
+                class="references-link"
+                target="_blank"
+                href="http://divnuclear.fisica.edu.uy/libro/Para_entender_las_radiaciones.pdf  "
+                >http://divnuclear.fisica.edu.uy/libro/Para_entender_las_radiaciones.pdf</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="sources-moreinfo">Notes</p>
+
+      <div class="notes-div">
+        <ul>
+          <li class="notes">
+            Aquesta pàgina web ha estat dissenyada per a la resolució de pantalla de 1920x1080, així que és possible que, 
+            si la teva pantalla té una resolució diferent, no es vegi bé. Si tens la resolució adequada, però continues veient 
+            la pàgina malament, canvia l'escala i distribució del text a la configuració del teu sistema operatiu o el zoom del 
+            teu navegador web. En Windows, per fer-ho, selecciona <b>Inici > Configuració > Sistema > Pantalla</b> i tria l'opció de <b>100% </b>
+            del menú desplegable en <b>Escala i distribució.</b>
+          </li>
+          <li class="notes">
+            Segons el nostre coneixement científic actual sobre la radiació,
+            sabem que certes dosis agudes, les més baixes, tenen efectes
+            estocàstics, mentre que les més altes tenen efectes deterministes.
+            Això canvia quan parlem sobre dosis prolongades al llarg de mesos o
+            anys, on tenim poca certesa sobre la perillositat de cada dosi. Si
+            vols saber més sobre els efectes d'algunes dosis, pots consultar el
+            següent
+            <a
+              href="https://www.energy.gov/sites/prod/files/2018/01/f46/doe-ionizing-radiation-dose-ranges-jan-2018.pdf"
+              >diagrama</a
+            >
+            del Departament d'Energia dels Estats Units.
+          </li>
+          <li class="notes">
+            Tant el nivell de perillositat com els resultats obtinguts són només estimacions. Tot i estar basades en dades reals, 
+            no s'han de considerar com a font fiable d'informació. 
+            Concretament, no es mostra cap explicació per al nivell de perillositat mostrat per aquesta raó. 
+          </li>
+        </ul>
+      </div>
+
+      <div class="lastUpdate-background">
+        <div class="lastUpdate">
+          <p>Actualitzat el 26 d'octubre de 2024</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="blank"></div>
+
+    <script src="js/gauge.js"></script>
+    <script src="js/medrad.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/descriptions.js"></script>
+  </body>
+</html>

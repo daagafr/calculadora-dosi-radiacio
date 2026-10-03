@@ -1,0 +1,34 @@
+.radiation-explanation {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+}
+
+.radiation-explanation-title {
+    font-size: 32px;
+    font-weight: 600;
+}
+.radiation-explanation-text {
+    font-family: "Calibri";
+    font-size: 22px;
+    margin-top: 2%;
+    text-align: justify;
+}
+@media screen and (max-width: 1024px) {
+    .radiation-explanation {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        margin-right: 2%;
+    }
+    
+    .radiation-explanation-title {
+        font-size: 3vh;
+        font-weight: 600;
+    }
+    .radiation-explanation-text {
+        font-family: "Calibri";
+        font-size: 1vh;
+        margin-top: 2%;
+        text-align: justify;
+    }
+}

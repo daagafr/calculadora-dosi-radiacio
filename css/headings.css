@@ -1,0 +1,326 @@
+p {
+  font-family: "Calibri";
+  font-size: 22px;
+  margin: 0px;
+  margin-bottom: 10px;
+}
+h1 {
+  background-color: #32abe7;
+  color: #ffffff;
+  padding: 14px;
+  font-family: "helvetica";
+  font-size: 32px;
+  font-variant: small-caps;
+  line-height: 30px;
+  text-align: left;
+  margin: 0px;
+  height: 30px;
+  font-weight: 700;
+  z-index: 1;
+}
+h2 {
+  background-color: #cc4331;
+  color: #ffffff;
+  padding: 14px;
+  font-family: "helvetica";
+  font-size: 32px;
+  font-variant: small-caps;
+  line-height: 30px;
+  text-align: left;
+  margin: 0px;
+  height: 30px;
+  font-weight: 700;
+}
+h3 {
+  background-color: #28b6a3;
+  color: #ffffff;
+  padding: 14px;
+  font-family: "helvetica";
+  font-size: 32px;
+  font-variant: small-caps;
+  line-height: 30px;
+  text-align: left;
+  margin: 0px;
+  height: 30px;
+  font-weight: 700;
+}
+h4 {
+  background-color: #9431a8;
+  color: #ffffff;
+  padding: 14px;
+  font-family: "helvetica";
+  font-size: 32px;
+  font-variant: small-caps;
+  line-height: 30px;
+  text-align: left;
+  margin: 0px;
+  height: 30px;
+  font-weight: 700;
+}
+h5 {
+  background-color: #8cb63f;
+  color: #ffffff;
+  padding: 14px;
+  font-family: "helvetica";
+  font-size: 32px;
+  font-variant: small-caps;
+  line-height: 30px;
+  text-align: left;
+  margin: 0px;
+  height: 30px;
+  font-weight: 700;
+}
+h6 {
+  background-color: #ec8c3c;
+  color: #ffffff;
+  padding: 14px;
+  font-family: "helvetica";
+  font-size: 32px;
+  font-variant: small-caps;
+  line-height: 30px;
+  text-align: left;
+  margin: 0px;
+  height: 30px;
+  font-weight: 700;
+}
+.h7 {
+  background-color: #c0b73d;
+  padding: 14px;
+  text-align: left;
+  margin: 0px;
+  height: 30px;
+}
+.h7-text {
+  color: #ffffff;
+  font-family: "helvetica";
+  font-size: 32px;
+  font-variant: small-caps;
+  line-height: 30px;
+  text-align: left;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 1366px) {
+  p {
+    font-family: "Calibri";
+    font-size: 18px;
+    margin: 0px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    background-color: #32abe7;
+    color: #ffffff;
+    padding: 14px;
+    font-family: "helvetica";
+    font-size: 28px;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    font-weight: 700;
+  }
+  h2 {
+    background-color: #cc4331;
+    color: #ffffff;
+    padding: 14px;
+    font-family: "helvetica";
+    font-size: 28px;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    font-weight: 700;
+  }
+  h3 {
+    background-color: #28b6a3;
+    color: #ffffff;
+    padding: 14px;
+    font-family: "helvetica";
+    font-size: 28px;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    font-weight: 700;
+  }
+  h4 {
+    background-color: #9431a8;
+    color: #ffffff;
+    padding: 14px;
+    font-family: "helvetica";
+    font-size: 28px;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    font-weight: 700;
+  }
+  h5 {
+    background-color: #8cb63f;
+    color: #ffffff;
+    padding: 14px;
+    font-family: "helvetica";
+    font-size: 28px;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    font-weight: 700;
+  }
+  h6 {
+    background-color: #ec8c3c;
+    color: #ffffff;
+    padding: 14px;
+    font-family: "helvetica";
+    font-size: 28px;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    font-weight: 700;
+  }
+  .h7 {
+    background-color: #c0b73d;
+    padding: 14px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 30px;
+  }
+  .h7-text {
+    color: #ffffff;
+    font-family: "helvetica";
+    font-size: 28px;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    font-weight: 700;
+  }
+}
+@media screen and (max-width: 1024px) {
+  p {
+    font-family: "Calibri";
+    font-size: 1vh;
+    margin: 0px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    background-color: #32abe7;
+    color: #ffffff;
+    padding-top: 3%;
+    padding-left: 2%;
+    font-size: 3vh;
+    font-family: "helvetica";
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin-bottom: 20px;
+    height: 3vh;
+    font-weight: 700;
+  }
+  h2 {
+    background-color: #cc4331;
+    color: #ffffff;
+    padding-top: 3%;
+    padding-left: 2%;
+    font-size: 3vh;
+    font-family: "helvetica";
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 3vh;
+    font-weight: 700;
+  }
+  h3 {
+    background-color: #28b6a3;
+    color: #ffffff;
+    padding-top: 3%;
+    padding-left: 2%;
+    font-size: 3vh;
+    font-family: "helvetica";
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 3vh;
+    font-weight: 700;
+  }
+  h4 {
+    background-color: #9431a8;
+    color: #ffffff;
+    padding-top: 3%;
+    padding-left: 2%;
+    font-size: 3vh;
+    font-family: "helvetica";
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 3vh;
+    font-weight: 700;
+  }
+  h5 {
+    background-color: #8cb63f;
+    color: #ffffff;
+    padding-top: 3%;
+    padding-left: 2%;
+    font-size: 3vh;
+    font-family: "helvetica";
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 3vh;
+    font-weight: 700;
+  }
+  h6 {
+    background-color: #ec8c3c;
+    color: #ffffff;
+    font-family: "helvetica";
+    padding-top: 3%;
+    padding-left: 2%;
+    font-size: 3vh;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 3vh;
+    font-weight: 700;
+  }
+  .h7 {
+    background-color: #c0b73d;
+    text-align: left;
+    margin: 0px;
+    margin-bottom: 20px;
+    height: 3vh;
+  }
+  .h7-text {
+    color: #ffffff;
+    font-family: "helvetica";
+    padding-top: 1%;
+    padding-left: 1%;
+    font-size: 3vh;
+    font-variant: small-caps;
+    line-height: 30px;
+    text-align: left;
+    font-weight: 700;
+  }
+}

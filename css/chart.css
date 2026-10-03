@@ -1,0 +1,418 @@
+.chart {
+    position: relative;
+    top: 3vh;
+    right: 8vh;
+    width: 90%;
+  }
+.chart-div {
+  margin-top: -2%;
+}
+
+  .legend-div {
+    position: relative;
+    top: -50vh;
+    left: 48vh;
+  }
+
+  .legend-text {
+    font-size: 25px;
+    line-height: 150%;
+    color: white;
+  }
+
+  .med-color {
+    background-color: rgba(50, 171, 231, 0.8);
+    outline-style:solid;
+    outline-width: 2px;
+    outline-color: white;
+    width: 5vh;
+    height: 3vh;
+    position: relative;
+    top: -28.5vh;
+    left: 40vh;
+    }
+
+    .int-color {
+      background-color: rgb(40 , 182,  163, 0.8 );
+      outline-style:solid;
+      outline-width: 2px;
+      outline-color: white;
+      width: 5vh;
+      height: 3vh;
+      position: relative;
+      top: -26.5vh;
+      left: 40vh;
+      }
+
+      .cos-color {
+        background-color: rgba(148, 49, 168, 0.8);
+        outline-style:solid;
+        outline-width: 2px;
+        outline-color: white;
+        width: 5vh;
+        height: 3vh;
+        position: relative;
+        top: -24.5vh;
+        left: 40vh;
+        }
+
+        .tra-color {
+          background-color: rgb(140,182,63,0.8);
+          outline-style:solid;
+          outline-width: 2px;
+          outline-color: white;
+          width: 5vh;
+          height: 3vh;
+          position: relative;
+          top: -22.5vh;
+          left: 40vh;
+          }
+
+          .ot-color {
+            background-color: rgba(236, 140, 60, 0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 5vh;
+            height: 3vh;
+            position: relative;
+            top: -20.5vh;
+            left: 40vh;
+            }
+            
+          .ter-color {
+            background-color: rgb(192,183,61,0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 5vh;
+            height: 3vh;
+            position: relative;
+            top: -18.5vh;
+            left: 40vh;
+            }
+            .rad-color {
+              background-color: rgba(204, 67, 49, 0.8);
+              outline-style:solid;
+              outline-width: 2px;
+              outline-color: white;
+              width: 5vh;
+              height: 3vh;
+              position: relative;
+              top: -16.5vh;
+              left: 40vh;
+              }
+
+@media screen and (min-width: 2560px) {
+  .chart-div {
+    margin-top: 20%;
+  }
+  .chart {
+    position: relative;
+    top: -1vh;
+    right: 0vh;
+    width: 100%;
+  }
+  .legend-text {
+    font-size: 28px;
+    line-height: 198%;
+    color: white;
+  }
+}
+@media screen and (max-width: 1536px) {
+  .legend-div {
+    position: relative;
+    top: -60vh;
+    left: 70vh;
+  }
+  .med-color {
+    background-color: rgba(50, 171, 231, 0.8);
+    outline-style:solid;
+    outline-width: 2px;
+    outline-color: white;
+    width: 5vh;
+    height: 3vh;
+    position: relative;
+    top: -37.5vh;
+    left: 62vh;
+    }
+
+    .int-color {
+      background-color: rgb(40 , 182,  163, 0.8 );
+      outline-style:solid;
+      outline-width: 2px;
+      outline-color: white;
+      width: 5vh;
+      height: 3vh;
+      position: relative;
+      top: -34vh;
+      left: 62vh;
+      }
+
+      .cos-color {
+        background-color: rgba(148, 49, 168, 0.8);
+        outline-style:solid;
+        outline-width: 2px;
+        outline-color: white;
+        width: 5vh;
+        height: 3vh;
+        position: relative;
+        top: -30.5vh;
+        left: 62vh;
+        }
+
+        .tra-color {
+          background-color: rgb(140,182,63,0.8);
+          outline-style:solid;
+          outline-width: 2px;
+          outline-color: white;
+          width: 5vh;
+          height: 3vh;
+          position: relative;
+          top: -26.5vh;
+          left: 62vh;
+          }
+
+          .ot-color {
+            background-color: rgba(236, 140, 60, 0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 5vh;
+            height: 3vh;
+            position: relative;
+            top: -23vh;
+            left: 62vh;
+            }
+            
+          .ter-color {
+            background-color: rgb(192,183,61,0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 5vh;
+            height: 3vh;
+            position: relative;
+            top: -19vh;
+            left: 62vh;
+            }
+            .rad-color {
+              background-color: rgba(204, 67, 49, 0.8);
+              outline-style:solid;
+              outline-width: 2px;
+              outline-color: white;
+              width: 5vh;
+              height: 3vh;
+              position: relative;
+              top: -15.5vh;
+              left: 62vh;
+              }
+}
+
+@media screen and (max-width: 1366px) {
+  .chart-div {
+    margin-top: 15%;
+  }
+  .chart {
+    position: relative;
+    top: 6vh;
+    right: 20vh;
+    width: 100%;
+  }
+  .legend-text {
+    font-size: 24px;
+    line-height: 172%;
+    color: white;
+  }
+  .legend-div {
+    position: relative;
+    top: -85vh;
+    left: 74vh;
+  }
+  .med-color {
+    background-color: rgba(50, 171, 231, 0.8);
+    outline-style:solid;
+    outline-width: 2px;
+    outline-color: white;
+    width: 8vh;
+    height: 5vh;
+    position: relative;
+    top: -48.5vh;
+    left: 62vh;
+    }
+
+    .int-color {
+      background-color: rgb(40 , 182,  163, 0.8 );
+      outline-style:solid;
+      outline-width: 2px;
+      outline-color: white;
+      width: 8vh;
+      height: 5vh;
+      position: relative;
+      top: -45vh;
+      left: 62vh;
+      }
+
+      .cos-color {
+        background-color: rgba(148, 49, 168, 0.8);
+        outline-style:solid;
+        outline-width: 2px;
+        outline-color: white;
+        width: 8vh;
+        height: 5vh;
+        position: relative;
+        top: -41.5vh;
+        left: 62vh;
+        }
+
+        .tra-color {
+          background-color: rgb(140,182,63,0.8);
+          outline-style:solid;
+          outline-width: 2px;
+          outline-color: white;
+          width: 8vh;
+          height: 5vh;
+          position: relative;
+          top: -38.5vh;
+          left: 62vh;
+          }
+
+          .ot-color {
+            background-color: rgba(236, 140, 60, 0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 8vh;
+            height: 5vh;
+            position: relative;
+            top: -35.5vh;
+            left: 62vh;
+            }
+            
+          .ter-color {
+            background-color: rgb(192,183,61,0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 8vh;
+            height: 5vh;
+            position: relative;
+            top: -32vh;
+            left: 62vh;
+            }
+            .rad-color {
+              background-color: rgba(204, 67, 49, 0.8);
+              outline-style:solid;
+              outline-width: 2px;
+              outline-color: white;
+              width: 8vh;
+              height: 5vh;
+              position: relative;
+              top: -28.5vh;
+              left: 62vh;
+              }
+}
+@media screen and (max-width: 1024px) {
+  .chart-div {
+    margin-top: 15%;
+  }
+  .chart {
+    position: relative;
+    top: 2vh;
+    right: -12vh;
+    width: 100%;
+  }
+  .legend-text {
+    font-size: 3vh;
+    line-height: 315%;
+    color: white;
+  }
+  .legend-div {
+    position: relative;
+    top: -25vh;
+    left: 20vh;
+  }
+  .med-color {
+    background-color: rgba(50, 171, 231, 0.8);
+    outline-style:solid;
+    outline-width: 2px;
+    outline-color: white;
+    width: 8vh;
+    height: 5vh;
+    position: relative;
+    top: 12vh;
+    left: 12vh;
+    }
+
+    .int-color {
+      background-color: rgb(40 , 182,  163, 0.8 );
+      outline-style:solid;
+      outline-width: 2px;
+      outline-color: white;
+      width: 8vh;
+      height: 5vh;
+      position: relative;
+      top: 18vh;
+      left: 12vh;
+      }
+
+      .cos-color {
+        background-color: rgba(148, 49, 168, 0.8);
+        outline-style:solid;
+        outline-width: 2px;
+        outline-color: white;
+        width: 8vh;
+        height: 5vh;
+        position: relative;
+        top: 24vh;
+        left: 12vh;
+        }
+
+        .tra-color {
+          background-color: rgb(140,182,63,0.8);
+          outline-style:solid;
+          outline-width: 2px;
+          outline-color: white;
+          width: 8vh;
+          height: 5vh;
+          position: relative;
+          top: 30vh;
+          left: 12vh;
+          }
+
+          .ot-color {
+            background-color: rgba(236, 140, 60, 0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 8vh;
+            height: 5vh;
+            position: relative;
+            top: 36vh;
+            left: 12vh;
+            }
+            
+          .ter-color {
+            background-color: rgb(192,183,61,0.8);
+            outline-style:solid;
+            outline-width: 2px;
+            outline-color: white;
+            width: 8vh;
+            height: 5vh;
+            position: relative;
+            top: 42vh;
+            left: 12vh;
+            }
+            .rad-color {
+              background-color: rgba(204, 67, 49, 0.8);
+              outline-style:solid;
+              outline-width: 2px;
+              outline-color: white;
+              width: 8vh;
+              height: 5vh;
+              position: relative;
+              top: 48vh;
+              left: 12vh;
+              }
+
+}
