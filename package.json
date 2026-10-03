@@ -1,6 +1,12 @@
 {
   "name": "calculadora-dosi-radiacio",
   "private": true,
+  "license": "MIT",
+  "author": "David Galan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daagafr/calculadora-dosi-radiacio.git"
+  },
   "type": "module",
   "scripts": {
     "start": "python tools/dev-server.py",

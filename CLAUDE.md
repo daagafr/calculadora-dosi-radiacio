@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Static, single-page public-outreach web app that estimates a person's annual ionizing-radiation dose (mSv/year) for people living in Spain. All UI text is in **Catalan**; numbers use a decimal comma (`Intl.NumberFormat("ca-ES")`, see `public/js/format.js`). Hosted on Firebase Hosting at https://calculadora-dosi-de-radiacio.web.app. It started as a high-school research project; the original version is preserved in git as tag `v1-batxillerat`.
+Static, single-page public-outreach web app that estimates a person's annual ionizing-radiation dose (mSv/year) for people living in Spain. All UI text is in **Catalan**; numbers use a decimal comma (`Intl.NumberFormat("ca-ES")`, see `public/js/format.js`). Hosted on Firebase Hosting at https://dosiradiacio.web.app; the original address (calculadora-dosi-de-radiacio.web.app) is a second site in the same project that only 301-redirects there. It started as a high-school research project; the original version is preserved in git as tag `v1-batxillerat`.
 
 No build step and no runtime dependencies: plain ES modules, one stylesheet, self-hosted fonts. Only `public/` is deployed.
 
@@ -12,7 +12,7 @@ No build step and no runtime dependencies: plain ES modules, one stylesheet, sel
 
 - Run locally: `npm start` (runs `tools/dev-server.py`, serves `public/` on http://localhost:5510 with caching disabled — plain `python -m http.server` lets the browser cache stale ES modules).
 - Tests: `npm test` (Node's built-in runner, `node --test "tests/*.test.js"`). Single file: `node --test tests/calc.test.js`.
-- Deploy: `npm run deploy` (runs the tests, then `firebase deploy --only hosting`; site `calculadora-dosi-de-radiacio`).
+- Deploy: `npm run deploy` (runs the tests, then `firebase deploy --only hosting`). `firebase.json` has two targets (mapped in `.firebaserc`): `main` → site `dosiradiacio` serves `public/`; `legacy` → site `calculadora-dosi-de-radiacio` redirects every path to the new address.
 - Social-share image: edit `tools/og-image.html`, then `python tools/make-og-image.py` (headless Chrome/Edge → `public/images/og.png`, 1200×630).
 - CI: `.github/workflows/tests.yml` runs the same tests with plain Node (no `npm install` needed).
 

@@ -2,7 +2,7 @@
 
 **Quanta radiació reps en un any?** Calculadora divulgativa de la dosi anual de radiació ionitzant per a persones que viuen a Espanya: radó, radiació del terra, raigs còsmics, aliments, proves mèdiques, vols, tabac i feina.
 
-👉 **https://calculadora-dosi-de-radiacio.web.app**
+👉 **https://dosiradiacio.web.app**
 
 ![Quanta radiació reps en un any?](public/images/og.png)
 
@@ -44,6 +44,12 @@ Si canvies alguna dosi, actualitza també l'informe corresponent de `docs/fonts/
 ## Avís
 
 És una eina educativa: dona estimacions amb valors típics, no una mesura personal ni un consell mèdic.
+
+## Llicència
+
+- **Codi:** [MIT](LICENSE).
+- **Textos, dades recopilades, informes i imatges:** [CC BY 4.0](LICENSE-CONTENT.md). Pots reutilitzar-los citant l'autor.
+- **Tipografies** (Fraunces i Inter): SIL Open Font License.
 
 ## Autor
 

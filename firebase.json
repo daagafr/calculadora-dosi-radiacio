@@ -1,39 +1,30 @@
 {
-  "hosting": {
-    "site": "calculadora-dosi-de-radiacio",
-    "public": "public",
-    "cleanUrls": true,
-    "headers": [
-      {
-        "source": "**/*.@(woff2|png|ico|svg)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=31536000, immutable"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(js|css)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=3600"
-          }
-        ]
-      }
-    ],
-    "redirects": [
-      {
-        "source": "/info/BED.html",
-        "destination": "/#article-platan",
-        "type": 301
-      },
-      {
-        "source": "/info/**",
-        "destination": "/",
-        "type": 301
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "target": "main",
+      "public": "public",
+      "cleanUrls": true,
+      "headers": [
+        {
+          "source": "**/*.@(woff2|png|ico|svg)",
+          "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+        },
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+        }
+      ],
+      "redirects": [
+        { "source": "/info/BED.html", "destination": "/#article-platan", "type": 301 },
+        { "source": "/info/**", "destination": "/", "type": 301 }
+      ]
+    },
+    {
+      "target": "legacy",
+      "public": "public",
+      "redirects": [
+        { "source": "/:path*", "destination": "https://dosiradiacio.web.app/:path*", "type": 301 }
+      ]
+    }
+  ]
 }

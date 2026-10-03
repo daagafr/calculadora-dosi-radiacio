@@ -1,4 +1,4 @@
-Sitemap: https://calculadora-dosi-de-radiacio.web.app/sitemap.xml
+Sitemap: https://dosiradiacio.web.app/sitemap.xml
 
 User-agent: *
 Disallow: 

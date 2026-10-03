@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "calculadora-dosi-de-radiacio"
-  }
+  },
+  "targets": {
+    "calculadora-dosi-de-radiacio": {
+      "hosting": {
+        "main": [
+          "dosiradiacio"
+        ],
+        "legacy": [
+          "calculadora-dosi-de-radiacio"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
