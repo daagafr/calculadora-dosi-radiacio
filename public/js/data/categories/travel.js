@@ -8,8 +8,8 @@ export default {
   id: "travel",
   sources: ["unscear2008-b", "faa2003"],
   questions: [
-    { id: "flightShortHours", type: "number", factor: 0.003, max: 2000, step: 0.5, sources: ["unscear2008-b", "faa2003"] },
-    { id: "flightLongHours", type: "number", factor: 0.004, max: 2000, step: 0.5, sources: ["unscear2008-b", "faa2003"] },
-    { id: "mountainDays", type: "count", perUnit: 0.002, max: 365, sources: ["unscear2000-a"] },
+    { id: "flightShortHours", type: "number", factor: 0.003, step: 0.5, sources: ["unscear2008-b", "faa2003"] },
+    { id: "flightLongHours", type: "number", factor: 0.004, step: 0.5, sources: ["unscear2008-b", "faa2003"] },
+    { id: "mountainDays", type: "count", perUnit: 0.002, sources: ["unscear2000-a"] },
   ],
 };

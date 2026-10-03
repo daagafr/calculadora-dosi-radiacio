@@ -59,7 +59,7 @@ form.addEventListener("click", (e) => {
   const button = e.target.closest("button[data-step]");
   if (!button) return;
   const q = questions.get(button.dataset.for);
-  const next = Math.max(0, Math.min(q.max ?? 99, (Number(answers[q.id]) || 0) + Number(button.dataset.step)));
+  const next = Math.max(0, (Number(answers[q.id]) || 0) + Number(button.dataset.step));
   answers[q.id] = next;
   form.querySelector(`input[data-q="${q.id}"]`).value = next;
   update();
@@ -81,6 +81,11 @@ function onInput(e) {
 
 function update() {
   const doses = computeDoses(CATEGORIES, answers);
+
+  // Les caselles numèriques s'eixamplen perquè hi càpiga el número sencer
+  for (const input of form.querySelectorAll('input[type="number"]')) {
+    input.style.setProperty("--len", String(input.value.length));
+  }
 
   for (const q of questions.values()) {
     if (!q.when) continue;

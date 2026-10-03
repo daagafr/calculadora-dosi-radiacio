@@ -3,7 +3,7 @@
 // DOMNES per a medicina nuclear) → EC RP 180 → Mettler 2008.
 // Detall i justificació de cada valor: docs/fonts/02-fonts-mediques.md
 
-const exam = (group, id, perUnit, sources) => ({ id, type: "count", group, perUnit, max: 50, sources });
+const exam = (group, id, perUnit, sources) => ({ id, type: "count", group, perUnit, sources });
 
 export default {
   id: "medical",
@@ -62,6 +62,6 @@ export default {
     exam("med-nuclear", "nmLeucocits", 4.1, ["domnes", "mettler2008"]),
 
     // Dosi coneguda (de l'informe dosimètric de l'hospital)
-    { id: "medKnownDose", type: "number", factor: 1, max: 500, step: 0.01, sources: ["rd601-2019"] },
+    { id: "medKnownDose", type: "number", factor: 1, step: 0.01, sources: ["rd601-2019"] },
   ],
 };

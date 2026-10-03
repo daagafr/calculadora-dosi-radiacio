@@ -1,8 +1,21 @@
 const LOCALE = "ca-ES";
 
+// A partir de mil milions, notació científica perquè el número càpiga: "1,8 × 10²⁴"
+const BIG = 1e9;
+const SUPERSCRIPT = { "-": "⁻", 0: "⁰", 1: "¹", 2: "²", 3: "³", 4: "⁴", 5: "⁵", 6: "⁶", 7: "⁷", 8: "⁸", 9: "⁹" };
+
+function formatScientific(n) {
+  if (!Number.isFinite(n)) return "∞";
+  const exponent = Math.floor(Math.log10(Math.abs(n)));
+  const mantissa = n / 10 ** exponent;
+  const sup = String(exponent).replace(/[-\d]/g, (c) => SUPERSCRIPT[c]);
+  return `${new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 1 }).format(mantissa)} × 10${sup}`;
+}
+
 // Dosi en mSv amb decimals adaptats a la magnitud (0,0004 → "0,0004"; 3,4217 → "3,42").
 export function formatDose(mSv, { min = 2 } = {}) {
   if (!mSv) return "0";
+  if (Math.abs(mSv) >= BIG) return formatScientific(mSv);
   const abs = Math.abs(mSv);
   let digits = min;
   if (abs < 0.01) digits = Math.max(min, 1 - Math.floor(Math.log10(abs)));
@@ -31,6 +44,7 @@ export function formatDoseCompact(mSv) {
 }
 
 export function formatNumber(n, digits = 0) {
+  if (Math.abs(n) >= BIG) return formatScientific(n);
   return new Intl.NumberFormat(LOCALE, {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,

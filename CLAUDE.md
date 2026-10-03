@@ -13,6 +13,8 @@ No build step and no runtime dependencies: plain ES modules, one stylesheet, sel
 - Run locally: `npm start` (runs `tools/dev-server.py`, serves `public/` on http://localhost:5510 with caching disabled — plain `python -m http.server` lets the browser cache stale ES modules).
 - Tests: `npm test` (Node's built-in runner, `node --test "tests/*.test.js"`). Single file: `node --test tests/calc.test.js`.
 - Deploy: `npm run deploy` (runs the tests, then `firebase deploy --only hosting`; site `calculadora-dosi-de-radiacio`).
+- Social-share image: edit `tools/og-image.html`, then `python tools/make-og-image.py` (headless Chrome/Edge → `public/images/og.png`, 1200×630).
+- CI: `.github/workflows/tests.yml` runs the same tests with plain Node (no `npm install` needed).
 
 ## Architecture
 

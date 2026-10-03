@@ -62,7 +62,6 @@ export default {
       type: "number",
       input: true,
       when: { q: "radonMode", eq: "measured" },
-      max: 20000,
       step: 1,
       warn: [{ above: 300, key: "warn300" }],
       sources: ["rd1029-2022"],

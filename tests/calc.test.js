@@ -18,7 +18,7 @@ const categories = [
     questions: [
       { id: "mode", type: "choice", default: "none", options: [{ id: "none", dose: 0 }, { id: "measured", dose: 0 }] },
       { id: "conc", type: "number", factor: 0.01, when: { q: "mode", eq: "measured" } },
-      { id: "exams", type: "count", perUnit: 0.5, max: 10 },
+      { id: "exams", type: "count", perUnit: 0.5 },
     ],
   },
 ];
@@ -36,7 +36,7 @@ test("questionDose per tipus", () => {
   assert.equal(questionDose(tog, true), 0.05);
   assert.equal(questionDose(tog, false), 0);
   assert.equal(questionDose(exams, 3), 1.5);
-  assert.equal(questionDose(exams, 500), 5, "respecta el màxim");
+  assert.equal(questionDose(exams, 1e12), 5e11, "sense límit superior");
   assert.equal(questionDose(exams, -2), 0, "no accepta negatius");
   close(questionDose(conc, "120,5"), 1.205);
 });

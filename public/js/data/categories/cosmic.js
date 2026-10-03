@@ -7,7 +7,10 @@
 const atmosphericDepth = (km) => Math.pow((44.34 - km) / 11.86, 1 / 0.19); // g/cm²
 
 export function cosmicDose(altitudeM) {
-  const z = Math.min(Math.max(altitudeM, 0), 5000) / 1000;
+  // La fórmula de la profunditat atmosfèrica no està definida a partir de 44,34 km (dona NaN),
+  // així que per sobre de 44 km es fa servir el valor de 44 km. És una fórmula per a la superfície:
+  // per sobre de l'altitud dels avions (~12 km) el resultat ja és només una extrapolació.
+  const z = Math.min(Math.max(altitudeM, 0), 44000) / 1000;
   const ionizing = 0.24 * (0.21 * Math.exp(-1.649 * z) + 0.79 * Math.exp(0.4528 * z));
   const neutrons = 0.065 * Math.exp(0.00721 * (atmosphericDepth(0) - atmosphericDepth(z)));
   return ionizing + neutrons;
@@ -21,7 +24,6 @@ export default {
       id: "altitude",
       type: "number",
       default: null,
-      max: 5000,
       step: 1,
       compute: cosmicDose,
       ifEmpty: 0.36, // mitjana d'Espanya ponderada per població (EANR, taula 9-2)

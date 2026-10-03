@@ -68,3 +68,4 @@ node_modules/
 # Local / OS
 desktop.ini
 .claude/settings.local.json
+*.url

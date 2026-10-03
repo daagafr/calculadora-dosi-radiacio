@@ -1,0 +1,136 @@
+<!doctype html>
+<!--
+  Plantilla de la imatge per compartir a xarxes (public/images/og.png, 1200×630).
+  Per regenerar-la: python tools/make-og-image.py
+-->
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: "Fraunces";
+        src: url("../public/fonts/fraunces-latin-opsz-normal.woff2") format("woff2");
+        font-weight: 100 900;
+      }
+      @font-face {
+        font-family: "Fraunces";
+        src: url("../public/fonts/fraunces-latin-opsz-italic.woff2") format("woff2");
+        font-weight: 100 900;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("../public/fonts/inter-latin-opsz-normal.woff2") format("woff2");
+        font-weight: 100 900;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        background: #faf8f3;
+        color: #1c1b18;
+        font-family: "Inter", sans-serif;
+        position: relative;
+      }
+      .content {
+        position: absolute;
+        left: 80px;
+        top: 72px;
+        width: 760px;
+      }
+      .eyebrow {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #736d64;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .eyebrow i {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #f2c230;
+      }
+      h1 {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        font-size: 104px;
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        margin: 26px 0 0;
+      }
+      h1 em {
+        font-weight: 400;
+        color: #c23b2a;
+      }
+      p {
+        font-size: 29px;
+        line-height: 1.4;
+        color: #47433c;
+        margin: 30px 0 0;
+        max-width: 700px;
+      }
+      .trefoil {
+        position: absolute;
+        right: 70px;
+        top: 150px;
+        width: 290px;
+        height: 290px;
+        color: #1c1b18;
+      }
+      .bar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 18px;
+        display: flex;
+      }
+      .bar span {
+        flex: 1;
+      }
+      .url {
+        position: absolute;
+        left: 80px;
+        bottom: 46px;
+        font-size: 24px;
+        font-weight: 600;
+        color: #2c6683;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="eyebrow"><i></i>Calculadora de dosi de radiació</div>
+      <h1>Quanta radiació reps <em>en un any?</em></h1>
+      <p>Radó, terra, raigs còsmics, proves mèdiques, vols… Calcula la teva dosi amb dades oficials.</p>
+    </div>
+    <svg class="trefoil" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="10" fill="currentColor" />
+      <path
+        fill="currentColor"
+        d="M2.00 50.00A48 48 0 0 1 26.00 8.43L42.50 37.01A15 15 0 0 0 35.00 50.00ZM74.00 8.43A48 48 0 0 1 98.00 50.00L65.00 50.00A15 15 0 0 0 57.50 37.01ZM74.00 91.57A48 48 0 0 1 26.00 91.57L42.50 62.99A15 15 0 0 0 57.50 62.99Z"
+      />
+    </svg>
+    <div class="url">calculadora-dosi-de-radiacio.web.app</div>
+    <div class="bar">
+      <span style="background: #a6961f"></span>
+      <span style="background: #8a3fa0"></span>
+      <span style="background: #c23b2a"></span>
+      <span style="background: #1d9887"></span>
+      <span style="background: #2a8bc4"></span>
+      <span style="background: #6a962c"></span>
+      <span style="background: #d9772a"></span>
+    </div>
+  </body>
+</html>

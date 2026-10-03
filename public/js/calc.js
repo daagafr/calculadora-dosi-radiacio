@@ -39,13 +39,11 @@ export function questionDose(question, answer, answers = {}) {
     }
     case "toggle":
       return answer ? question.dose : 0;
-    case "count": {
-      const n = Math.min(toNumber(answer), question.max ?? Infinity);
-      return n * question.perUnit;
-    }
+    case "count":
+      return toNumber(answer) * question.perUnit;
     case "number": {
       if (isEmpty(answer) && question.ifEmpty !== undefined) return question.ifEmpty;
-      const n = Math.min(toNumber(answer), question.max ?? Infinity);
+      const n = toNumber(answer);
       return question.compute ? question.compute(n) : n * question.factor;
     }
     case "derived":

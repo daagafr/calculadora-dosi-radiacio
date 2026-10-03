@@ -8,7 +8,7 @@ export default {
   sources: ["ncrp160", "csn-informe2023"],
   questions: [
     // 18 µSv/any per cada cigarret diari (NCRP 160): 20 al dia ≈ 0,36 mSv/any
-    { id: "cigarettesPerDay", type: "count", perUnit: 0.018, max: 80, sources: ["ncrp160"] },
+    { id: "cigarettesPerDay", type: "count", perUnit: 0.018, sources: ["ncrp160"] },
     // Dosi a la persona més exposada de l'entorn d'una central espanyola el 2023: ≤ 0,0011 mSv
     { id: "nuclearNearby", type: "toggle", dose: 0.001, sources: ["csn-informe2023"] },
     // Potassi-40 d'una altra persona: estimació ≈ 0,001 mSv/any (UNSCEAR 2008 B §95 + càlcul propi)
@@ -33,7 +33,6 @@ export default {
       id: "occupationDose",
       type: "number",
       factor: 1,
-      max: 1000,
       step: 0.01,
       when: { q: "occupation", eq: "known" },
       warn: [

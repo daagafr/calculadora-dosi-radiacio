@@ -607,10 +607,11 @@ b {
   border-top: 1px solid var(--rule);
 }
 .row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 8px 12px;
   padding: 10px 0;
   border-bottom: 1px solid var(--rule);
 }
@@ -619,6 +620,16 @@ b {
   align-items: flex-start;
   gap: 10px;
   min-width: 0;
+}
+/* El text ocupa l'espai que pot; si el número del comptador és molt llarg,
+   el comptador baixa a la línia de sota en lloc d'aixafar el text */
+.row > :first-child {
+  flex: 1 1 14em;
+}
+.row > :last-child {
+  flex: 0 1 auto;
+  max-width: 100%;
+  margin-left: auto;
 }
 .row__text {
   min-width: 0;
@@ -696,8 +707,12 @@ label.row__main {
   cursor: default;
   background: transparent;
 }
+.stepper {
+  max-width: 100%;
+}
 .stepper input {
-  width: 2.6em;
+  width: max(2.6em, calc(var(--len, 0) * 1ch + 1.5ch));
+  max-width: calc(100vw - 140px);
   border: 0;
   background: transparent;
   text-align: center;
@@ -726,7 +741,8 @@ label.row__main {
   border-color: var(--ink-2);
 }
 .field input {
-  width: 8.5em;
+  width: max(8.5em, calc(var(--len, 0) * 1ch + 2.5ch));
+  max-width: 60vw;
   border: 0;
   background: transparent;
   padding: 10px 12px;
@@ -904,6 +920,7 @@ label.row__main {
   flex-wrap: wrap;
 }
 .result__value {
+  overflow-wrap: anywhere;
   font-family: var(--font-serif);
   font-size: clamp(3.2rem, 6vw, 4.4rem);
   font-weight: 500;
@@ -1335,7 +1352,6 @@ label.row__main {
   text-align: right;
   padding-right: 0;
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
 
 .cite {
